@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+data/thailand_data_bank.csv
+data/thailand_gpp_data.csv
+/data/tabs/Figure_*
+/data-viz/outputs/Figure_*
+data-viz/inputs/Thailand Report Outline.docx

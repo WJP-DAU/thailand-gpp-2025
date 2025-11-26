@@ -12,6 +12,9 @@ if (interactive()){
 source("R/viz_dumbbells.R")
 source("R/viz_waffle.R")
 source("R/viz_logit.R")
+source("R/viz_rose.R")
+source("R/viz_dots_roli.R")
+source("R/viz_roli.R")
 
 suppressMessages(
   suppressWarnings(
@@ -21,7 +24,7 @@ suppressMessages(
 library(ggrepel)
 library(ggtext)
 library(readxl)
-
+library(showtext)
 thai_data_bank <- readr::read_csv(
   "../data/thailand_data_bank.csv",
   show_col_types = FALSE
@@ -39,6 +42,26 @@ roli_data <- readxl::read_excel("../data/ROLI_data.xlsx") %>%
   filter(country %in% southeast_asia)
 
 WJPr::wjp_fonts()
+
+#Loading fonts
+path2fonts <- file.path(
+  paths[[Sys.info()[['user']]]][['path2DA']],
+  "6. Country Reports",
+  "0. Fonts/"
+)
+
+font_add(family     = "inter",
+         regular      = paste0(path2fonts, "InterTight-Medium.ttf"),
+         italic     = paste0(path2fonts, "InterTight-MediumItalic.ttf"),
+         bold       = paste0(path2fonts, "InterTight-SemiBold.ttf"),
+         bolditalic = paste0(path2fonts, "InterTight-SemiBoldItalic.ttf"))
+font_add(family  = "inter Light",
+         regular = paste0(path2fonts, "InterTight-Italic.ttf"))
+font_add(family  = "inter Black",
+         regular = paste0(path2fonts, "InterTight-ExtraBold.ttf"))
+font_add(family  = "inter Black Italic",
+         regular = paste0(path2fonts, "InterTight-ExtraBoldItalic.ttf"))
+showtext_auto()
 
 if(!interactive()){
   verbose_message("--- Preparing individual tabs for visualizations...")
@@ -481,13 +504,27 @@ data_viz <- purrr::imap(
     }
     
     ggsave(
-      filename = glue::glue("outputs/{figure_id}.svg"),
+      filename = 
+        file.path(
+          paths[[Sys.info()[['user']]]][['path2DA']],
+          "6. Country Reports",
+          "thailand-gpp-2025",
+          "data-viz",
+          "outputs",
+          paste0(figure_id, ".svg")
+          ),
       plot = chart,
       width = w,
       height = h
     )
     
+    
     return(chart)
   }
 )
+
+# ROLI
+
+gen_roli_rose(roli_data)
+gen_roli_dots.fn(roli_data)
 

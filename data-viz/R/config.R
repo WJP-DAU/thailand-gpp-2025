@@ -8,6 +8,7 @@
 library(magrittr, include.only = c("%>%"))
 
 # SharePoint Paths
+
 paths <- list(
   "carlostoruno" = list(
     "path2DA"  = "/Users/carlostoruno/OneDrive - World Justice Project/Data Analytics",

@@ -1,5 +1,3 @@
-source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/refs/heads/main/LAC/roseChart.R")
-source("https://raw.githubusercontent.com/ctoruno/WJP-Data-Viz/refs/heads/main/NM/dotsChart.R")
 library(WJPr)
 
 gen_roli_rose <- function(roli_data){
@@ -52,22 +50,30 @@ gen_roli_rose <- function(roli_data){
   colors4plot <- rep("#2E2E95", 8)
   
   # Applying plotting function
-  chart <- LAC_roseChart(data          = data2plot,
-                         target_var    = "avg",
-                         grouping_var  = "category",
-                         alabels_var   = "label",
-                         plabels_var   = "valab",
-                         order_var     = "order_value",
-                         colors        = colors4plot)
+  chart <- rose_chart.viz(
+    data          = data2plot,
+    target_var    = "avg",
+    grouping_var  = "category",
+    alabels_var   = "label",
+    plabels_var   = "valab",
+    order_var     = "order_value",
+    colors        = colors4plot) 
   
-  # Saving panels
   ggsave(
-    filename = glue::glue("outputs/roli_rose.svg"),
-    plot = chart,
-    width = 4,
+    filename = 
+      file.path(
+        paths[[Sys.info()[['user']]]][['path2DA']],
+        "6. Country Reports",
+        "thailand-gpp-2025",
+        "data-viz",
+        "outputs",
+        paste0("roli_rose", ".svg")
+      ),
+    plot   = chart,
+    width  = 4,
     height = 4
   )
-  
+
 }
 
 gen_roli_dots.fn <- function(roli_data){
@@ -163,7 +169,7 @@ gen_roli_dots.fn <- function(roli_data){
          data2plot <- data2plot %>%
            filter(factor %in% cfactor)
          
-         chart <- NM_dotsChart(data         = data2plot,
+         chart <- ROLI_dots(   data         = data2plot,
                                target_var   = "value2plot",
                                sd_var = NULL,
                                n_obs  = NULL,
@@ -175,35 +181,41 @@ gen_roli_dots.fn <- function(roli_data){
                                shapes       = shapes4plot,
                                draw_ci      = F,
                                y_upper      = 1,
-                               dsize        = 1.5,
-                               fsize        = 9,
-                               fsize2       = 8)
+                               dsize        = 2.5)
          
          # Defining height
          if (max(data2plot$order_var) == 3 ) {
-           h = 1
+           h = 1.25
          }
          if (max(data2plot$order_var) == 4 ) {
            h = 1.5
          }
          if (max(data2plot$order_var) == 5 ) {
-           h = 2
+           h = 1.75
          }
          if (max(data2plot$order_var) == 6 ) {
-           h = 2.25
+           h = 2
          }
          if (max(data2plot$order_var) == 7 ) {
-           h = 2.5
+           h = 2.25
          }
          if (max(data2plot$order_var) == 8 ) {
-           h = 3
+           h = 2.5
          }
          
          # Saving panels
          ggsave(
-           filename = glue::glue("outputs/roli_dots_{panelName}.svg"),
+           filename = 
+             file.path(
+               paths[[Sys.info()[['user']]]][['path2DA']],
+               "6. Country Reports",
+               "thailand-gpp-2025",
+               "data-viz",
+               "outputs",
+               paste0("roli_dots_",panelName,".svg")
+               ),
            plot = chart,
-           width = 4,
+           width = 5,
            height = h
          )
          

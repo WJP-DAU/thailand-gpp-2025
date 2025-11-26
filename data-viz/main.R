@@ -14,6 +14,12 @@ option_list <- list(
     help    = "Perform data loading and wrangling routines"
   ),
   optparse::make_option(
+    c("--viz"),
+    action  = "store_true",
+    default = FALSE,
+    help    = "Perform data viz routines"
+  ),
+  optparse::make_option(
     c("--verbose"),
     action  = "store_false",
     default = TRUE,
@@ -44,7 +50,7 @@ main <- function(){
     verbose_message("Data wrangling routine successful ✅")
   }
   
-  if (opt$data){
+  if (opt$viz){
     verbose_message("Performing data visualization routine:")
     source("R/data_visualization.R")
     verbose_message("Data visualization routine successful ✅")

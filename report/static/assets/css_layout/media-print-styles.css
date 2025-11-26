@@ -1,0 +1,511 @@
+@media print {
+
+	/* GENERAL STYLES */
+    @page {
+        size: letter portrait;
+		margin: 0px;
+    }
+    @page :first {
+		margin:0px
+    }
+	/* @page:right{
+	  @bottom-right {
+		content: counter(page);
+	  }
+	}
+	@page:left{
+	  @bottom-left {
+		content: counter(page);
+	  }
+	} */
+	body{
+		font-size:16px;
+	}
+  	.no-print, .no-print *
+  	{
+      display: none !important;
+  	}
+  	.print {
+    	display: block;
+  	}
+	.back-cover{
+		min-height: 100vh;
+	}
+	.height85vh{
+		height: 100vh;
+	}
+	.bg-page-cover {
+		height: 100%;
+		min-height: 100vh;
+	}
+	.bg-page-cover .logo-cover{
+		display: block;
+	}
+	.bg-purple a{
+	text-decoration: none;
+	}
+	.btn-top.toTop{
+		display:none;
+	}
+	.bg-data-Acknowledgements.mt-5{
+		margin-top: 8rem !important;
+	}
+	.hide-number{
+		display: inline-block;
+		line-height: 24px;
+	}				
+	.table td, .table th {
+		background-color: transparent !important;
+	}
+	.img-chart{
+		width: 100%;
+	}
+	.w-90.img-chart{
+		width: 100%;
+	}
+	.w-85.img-chart{
+		width: 100%;
+		max-width: 100%;
+	}
+	.size-custom-figure8c{
+		max-width: 100%;
+	}
+	.size-custom-figure12d{
+		max-width: 100%;
+	}
+	.size-custom-figure-chart9{
+		max-width: 100% ;
+	}
+	.size-custom-figure-chart12{
+		max-width: 100%;
+	}
+	.bg-purple .li{
+		padding-left: 25px !important;
+	}
+	.bg-purple .hide-number{
+		line-height: 32px;
+	}
+	.hide-print{
+		display: none;
+	}
+	.bg-page-cover{
+		height: 34.47cm;
+	}
+	.text-cover{
+		width: 60.666667%;
+		position: absolute;
+		bottom: 200px;
+		left: 50%;
+		margin-left: -21%;
+		display: none;	/* To hide the title from the PDF*/
+	}
+	.ml-4.bl-purple{
+		margin-bottom: 20px;
+	}
+
+	/* FOOTNOTES & PAGINATION */
+	.foot-note{
+		position: absolute;
+		bottom: 80px;
+		left: 60px;
+		width: 95%;
+	}
+	.foot-note p:last-child{
+		margin-bottom:0px;
+	}
+	.foot-note p{
+		line-height: normal;
+	}
+	.nobotton-fnote p{
+		line-height: normal;
+	}
+	.page-number{
+		display:block;
+	}
+	.page-number{
+	  content: counter(page);
+		position: absolute;
+		bottom:35px;
+		right: 40px;
+		font-weight: 300;
+		color:#666;
+		font-size:14px;
+	}
+	.page-number b{
+		padding-left: 5px;
+		padding-right: 0px;
+		font-weight: 700;
+		font-size:16px;
+	}
+	.page-number.left-number{
+	  	content: counter(page);
+		position: absolute;
+		bottom:35px;
+		left: 40px
+	}
+	.page-number.left-number b{
+		padding-left: 0px;
+		padding-right: 5px;
+	}
+	
+	/* SECTION TAG */
+	section.bg-purple{
+		height: 34.47cm;
+	}
+	section.bg-purple .height85vh {
+		height: 118vh;
+	}
+	section.bg-purple .justify-content-center .col-md-4 {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+	}
+	section.bg-page-gray{
+		height: 34.47cm;
+	}
+	section{
+		position: relative;
+	}
+
+	/* Acknowledgements */
+	.container-fluid.mt-5.mb-5.bg-data-Acknowledgements{
+		margin-top: 0rem !important;
+		margin-bottom: 0rem !important;
+	} 
+	.container-fluid.mt-5.bg-data-Acknowledgements .col-md-3 {
+		-ms-flex: 0 0 30%;
+		flex: 0 0 30%;
+		max-width: 30%;
+	}
+	.container-fluid.mt-5.bg-data-Acknowledgements .col-md-3:last-child {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	.row.p-5.data-Acknowledgements{
+		padding: 1.5rem 0rem 1.5rem 1.5rem !important;
+	}
+	.bg-data-Acknowledgements a.link-phone, .bg-data-Acknowledgements a{
+		text-decoration: none;
+	}
+
+	/* TABLE OF CONTENTS */
+	.table-contents{
+		min-height: 100vh;
+		height: 34.47cm !important;
+	}
+	.table-contents .col-sm-8.col-md-4.mt-5{
+		padding-top:150px !important;
+	}
+	.table-contents p.li em{
+		margin-top: 1.5rem;
+		display: block;
+	}
+	.table-contents p.li b{
+		margin-top: 3rem;
+		display: block;
+	}
+	.table-contents p.li b:first-child{
+		margin-top: 0rem;
+	}
+	.table-contents p a {
+		color: #262424;
+		text-decoration: none;
+	}
+	.table-contents p a b{
+		color: #262424;
+		text-decoration: none;
+	}
+	.table-contents p a em{
+		color: #482d8a;
+		text-decoration: none;
+	}
+	.table-contents .col-sm-8.col-md-4.mt-5 {
+		padding-top: 40px !important;
+	}
+	.table-contents .col-md-4 {
+		-ms-flex: 0 0 35.333333%;
+		flex: 0 0 35.333333%;
+		max-width: 35.333333%;
+	}
+
+	/* EXECUTIVE FINDINGS */
+	.ExecutiveFindings_general {
+		padding-top: 4rem !important;
+		margin-top: 3rem;
+		height: 34.47cm !important;
+	}
+	.ExecutiveFindings_general p, #SpecialNote p, .ExecutiveFindings_general p{
+		line-height: 1.4;
+		font-size: 0.92rem;
+	}
+	.ExecutiveFindings_general .sectitle {
+		line-height: 1.8;
+		font-size: 1.1rem;
+	}
+	.ExecutiveFindings_general p.title-p, #SpecialNote p.title-p{
+		font-size: 30px;
+	}
+
+	/* ABOUT THIS REPORT */
+	#AboutThisReport {
+		height: 34.47cm !important;
+	}
+	#AboutThisReport .container{
+		margin: 0 auto;
+		padding-top: 15rem !important;
+	}
+	#AboutThisReport .p-quote{
+		width: 90%;
+	}
+	#AboutThisReport .container.pt-5, #SpecialNote .container.pt-5{
+		padding-top: 120px !important;
+	}
+
+	/* SINGLEPANEL */
+	.singlepanel{
+		height: 34.47cm;
+	}
+	.singlepanel .img-chart{
+		width: 90%;
+	}
+	
+	/* BIPANEL */
+	.bipanel {
+		height: 34.47cm;
+	}
+	.bipanel .img-chart{
+		width: 80%;
+	}
+
+	/* TRIPANEL */
+	.tripanel {
+		height: 34.47cm;
+	}
+	.tripanel .img-chart{
+		width: 85%;
+		padding-top: 2rem;
+	}
+	.tripanel .row.justify-content-center.mt-4{
+		margin-top: 0rem !important;
+	}
+	.tripanel p.mb-4{
+		margin-bottom: 0.5rem !important;
+	}
+	.tripanel .justify-content-center .col-md-11.mb-5{
+		margin-bottom: 2rem !important;
+	}
+	.tripanel .justify-content-center:nth-child(3){
+		margin-bottom: 15px !important;
+	}
+
+	/* QUADPANEL */
+	.quadpanel{
+		height: 34.47cm;
+	}
+	.quadpanel .col-md-6 {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+	.quadpanel .img-chart{
+		width: 85%;
+	}
+	.quadpanel .container .row:nth-child(3) .col-md-11 .row:first-child .col-md-6:nth-child(4) p:nth-child(2){
+		width: 290px;
+	}
+	.quadpanel .bullet.bg-blue.ml-4{
+		margin-left: 0px!important;
+	}
+
+	/* PENTAPANEL */
+	.pentapanel {
+		height: 34.47cm;
+		padding-top: 3rem;
+	}
+	.pentapanel .container.pt-4{
+		padding-top: 0rem !important;
+	}
+	.pentapanel .col-md-5 {
+		-ms-flex: 0 0 41.666667%;
+		flex: 0 0 41.666667%;
+		max-width: 41.666667%;
+	}
+	.pentapanel .col-md-7 {
+		-ms-flex: 0 0 58.333333%;
+		flex: 0 0 58.333333%;
+		max-width: 58.333333%;
+	}
+	.pentapanel .row.justify-content-center.mt-5{
+		margin-top: 0rem !important;
+	}
+	.pentapanel .text-chart{
+		font-size: 0.9rem;
+	}
+	.pentapanel .w-90.img-chart{
+		width: 85%;
+	}
+
+	/* HEXPANEL */
+	.hexpanel{
+		height: 34.47cm;
+	}
+	.hexpanel .col-md-6 {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+	.hexpanel .img-chart{
+		width: 85%;
+	}
+
+	/* ABOUT THE WJP */
+	#AboutTheWJP{
+		min-height: 100vh;
+	}
+
+	/* IFRAME & BREADCRUMB */
+	#invoice{
+		display: flex;
+		margin: auto;
+	}
+	#root{margin-top:0;}
+	#embedMenu{display:none !important;}
+	.breadcrumb-content{display:none;}
+
+	/* WEBKIT */
+	_::-webkit-full-page-media, _:future, :root body{
+		font-size:15px;
+	}
+	_::-webkit-full-page-media, _:future, :root .bg-page-cover{
+		background: url('../images_layout/pict2.jpg') center center no-repeat;
+  		background-size:cover;
+		min-height: 31.5cm;
+		print-color-adjust:exact;
+		-webkit-print-color-adjust:exact;
+	}
+	_::-webkit-full-page-media, _:future, :root .text-cover{
+			height:calc(100vh - 10px) !important;
+	}
+	_::-webkit-full-page-media, _:future, :root .bg-page-gray.pb-5{
+		padding-bottom: 1rem!important;
+	}
+	_::-webkit-full-page-media, _:future, :root .container.pt-5{
+		padding-top: 1rem!important;
+	}
+	_::-webkit-full-page-media, _:future, :root .data-Acknowledgements.p-5{
+		padding: 2rem 3rem 1rem!important;
+	}
+	_::-webkit-full-page-media, _:future, :root .bg-data-Acknowledgements.mt-5{
+		margin-top: 3rem !important;
+	}
+	_::-webkit-full-page-media, _:future, :root .table-contents{
+		margin-top: -50px;
+		background: #fff;
+	}
+	_::-webkit-full-page-media, _:future, :root .table-contents .col-sm-8.col-md-4.mt-5{
+		padding-top:50px !important;
+	}
+	_::-webkit-full-page-media, _:future, :root #About{
+		min-height: 31.5cm;
+	}
+	_::-webkit-full-page-media, _:future, :root #About .row.align-items-center.h-100{
+		height: 27cm !important;
+	}
+	_::-webkit-full-page-media, _:future, :root #AboutThisReport{
+		min-height: 31.5cm;
+	}
+	_::-webkit-full-page-media, _:future, :root #ExecutiveFindings{
+		font-size:14px;
+	}
+
+	/* OTHER */
+	#SpecialNote{
+		height: 34.47cm;
+	}
+	#Methodology{
+		height: 34.47cm;
+	}
+	#DescriptionSample{
+		height: 34.47cm;
+		padding-top: 3rem !important;
+	}
+	#DescriptionSample .container.pt-5{
+		padding-top: 0rem !important;
+	}
+	#DescriptionSample p{
+		line-height: 1.4;
+	}
+	#DescriptionSample .table-sm tbody td{
+		padding: 0.1rem 0.3rem;
+	}
+	#DescriptionSample .col-md-4 {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+	}
+	#DescriptionSample .col-md-8 {
+		-ms-flex: 0 0 66.666667%;
+		flex: 0 0 66.666667%;
+		max-width: 66.666667%;
+	}
+	#AdditionalCountries{
+		padding-top: 4rem !important;
+		height: 34.47cm;
+	}
+	#AdditionalCountries .table-responsive:before {
+		padding: 2px 5px;
+		content: "Swipe left to read more";
+		color: #fff;
+		  background: #888;
+		display: none;
+	}
+	#AdditionalCountries .table-sm tbody td{
+		padding: 0.2rem 0.3rem;
+	}
+	#AdditionalCountries .table-sm{
+		margin-bottom: 0rem !important;
+	}
+	#AdditionalCountries .reference{
+		margin-top: -45px !important;
+	}
+	#MethodologicalMaterials{
+		height: 34.47cm;
+	}
+	#AboutTheWJP{
+		height: 34.47cm;
+	}
+	#AboutTheWJP .text-about-justice{
+		margin-top: 200px;
+		max-width: 750px;
+	}
+	#OtherPublications {
+		height: 34.47cm;
+	}
+	#OtherPublications .col-md-4 {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+	}
+	#OtherPublications .cont-other-publications .my-4 {
+		margin-bottom: 0rem!important;
+		margin-top: 0rem!important;
+	}
+	#OtherPublications .mb-4{
+		margin-bottom: 0rem !important;
+	}
+	#OtherPublications .cont-other-publications img{
+		width: 90% !important;
+	}
+	.back-cover{
+		height: 34.47cm;
+	}
+	.container{
+		min-width: 692px;
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+	.ml-4.bl-purple{
+		margin-left: 0.9rem!important;
+	}
+}
+

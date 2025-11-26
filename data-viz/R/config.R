@@ -12,6 +12,10 @@ paths <- list(
   "carlostoruno" = list(
     "path2DA"  = "/Users/carlostoruno/OneDrive - World Justice Project/Data Analytics",
     "path2GPP" = "/Users/carlostoruno/OneDrive - World Justice Project/General Population Poll" 
+  ),
+  "santiagopardo" = list(
+    "path2DA"  = "/Users/santiagopardo/OneDrive - World Justice Project/Data Analytics",
+    "path2GPP" = "/Users/santiagopardo/OneDrive - World Justice Project/General Population Poll" 
   )
 )
 

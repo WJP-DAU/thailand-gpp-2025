@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-5858733-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-5858733-1");
+    </script>
+
+    <!-- HTML Meta Tags -->
+    <title>The Rule of Law in Thailand</title>
+    <meta name="description" content="{{dynamic_data.general.description}}" />
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="{{dynamic_data.general.title}}" />
+    <meta
+      itemprop="description"
+      content="{{dynamic_data.general.description}}"
+    />
+    <meta itemprop="image" content="{{dynamic_data.general.shareImage}}" />
+
+    <!-- Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https://worldjusticeproject.org/rule-of-law-index"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{dynamic_data.general.title}}" />
+    <meta
+      property="og:description"
+      content="{{dynamic_data.general.description}}"
+    />
+    <meta property="og:image" content="{{dynamic_data.general.shareImage}}" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{dynamic_data.general.title}}" />
+    <meta
+      name="twitter:description"
+      content="{{dynamic_data.general.description}}"
+    />
+    <meta name="twitter:image" content="{{dynamic_data.general.shareImage}}" />
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="static/assets/css_layout/bootstrap.min.css" />
+    <link rel="stylesheet" href="static/assets/css_layout/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="static/assets/css_layout/styles.css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="static/assets/css_layout/media-print-styles.css"
+      media="print"
+    />
+
+    <!-- Favicon/Fontawesome -->
+    <link rel="icon" href="static/assets/favicon.ico" type="icon" />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+      integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+      integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper" id="invoice">
+      <!-- iframe menu WJP -->
+      <iframe
+        id="embedMenu"
+        src="https://worldjusticeproject.org/wjp-index"
+      ></iframe>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-content">
+        <div class="wrap-breadcrum">
+          <ol class="breadcrumb">
+            <li>
+              <a href="https://worldjusticeproject.org/">Home</a>
+            </li>
+            <li>
+              <a href="https://worldjusticeproject.org/our-work">Our Work</a>
+            </li>
+            <li>
+              <a
+                href="https://worldjusticeproject.org/our-work/wjp-rule-law-index"
+                >Research and Data</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://worldjusticeproject.org/our-work/research-and-data/rule_of_law_COUNTRY_YEAR"
+                >Rule of Law in the USA 2024</a
+              >
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- CTA MENU / only WEB Browser  -->
+      <div
+        class="no-print wrap-menu"
+        style="z-index: 3; position: fixed; top: 50%; margin-top: -220px"
+      >
+        <button type="button" id="sidebarCollapse" class="navbar-btn active">
+          <div class="row align-baseline mx-0">
+            <div class="col-4 px-0">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="col-8 px-0">
+              <p>Content</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- MENU / only WEB Browser  -->
+      <nav id="sidebar" class="no-print mt-5 nav active">
+        <ul class="list-unstyled components">
+          <li class="active">
+            <a id="MenuCover" class="btn-level1 menuOpt" href="#Cover">
+              <img
+                src="static/assets/images_layout/icnHome.svg"
+                class="mx-2"
+              /><span>Cover</span>
+            </a>
+          </li>
+          <li>
+            <a id="MenuAbout" class="btn-level1 menuOpt" href="#About">
+              <img
+                src="static/assets/images_layout/icnChapi.svg"
+                class="mx-2"
+              /><span>About this Report</span>
+            </a>
+          </li>
+          <li>
+            <a id="DropDown" class="btn-level1" href="#pageSubmenu">
+              <img
+                src="static/assets/images_layout/icnChapii.svg"
+                class="mx-2"
+              /><span
+                >Thematic Findings <span class="icn-dropdown"></span
+              ></span>
+            </a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a class="btn-level2 menuOpt" href="#SectionI"
+                  ><span
+                    >Section I: Rule of Law and Government Accountability</span
+                  ></a
+                >
+                <a class="btn-level2 link-collapse" href="#SectionI">I</a>
+              </li>
+              <li>
+                <a class="btn-level2 menuOpt" href="#SectionII"
+                  ><span>Section II: Elections and News Consumption</span></a
+                >
+                <a class="btn-level2 link-collapse" href="#SectionII">II</a>
+              </li>
+              <li>
+                <a class="btn-level2 menuOpt" href="#SectionIII"
+                  ><span
+                    >Section III: Authoritarianism and Fundamental
+                    Freedoms</span
+                  ></a
+                >
+                <a class="btn-level2 link-collapse" href="#SectionIII">III</a>
+              </li>
+              <li>
+                <a class="btn-level2 menuOpt" href="#SectionIV"
+                  ><span>Section IV: Corruption and Trust</span></a
+                >
+                <a class="btn-level2 link-collapse" href="#SectionIV">IV</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a id="MenuProject" class="btn-level1 menuOpt" href="#Project">
+              <img
+                src="static/assets/images_layout/icnChapiii.svg"
+                class="mx-2"
+              /><span>Project Design</span>
+            </a>
+          </li>
+          <li>
+            <a id="MenuAppendix" class="btn-level1 menuOpt" href="#Appendix">
+              <img
+                src="static/assets/images_layout/icnChapiv.svg"
+                class="mx-2"
+              /><span>Appendix</span>
+            </a>
+          </li>
+          <li>
+            <a
+              id="MenuDownload"
+              class="btn-level1 menuOpt"
+              onclick="window.open('{{dynamic_data.general.pdfName}}')"
+            >
+              <img
+                src="static/assets/images_layout/icnDownload.svg"
+                class="mx-2"
+              /><span>Download</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Beginning of REPORT CONTENT -->
+      {% import "general.html" as general %} {% import "thematic_findings.html"
+      as tf %} {% import "executive_findings.html" as execfinds %} {% import
+      "methodology.html" as method %}
+
+      <div id="content">
+        <!-- COVER  -->
+        {{general.cover(dynamic_data["general"])}}
+
+        <!-- ACKNOWLEDGMENTS  -->
+        {{general.acknowledgements(dynamic_data["acknowledgements"])}}
+
+        <!-- TABLE OF CONTENTS -->
+        {{general.toc(dynamic_data["toc"])}}
+
+        <!-- ABOUT THIS REPORT -->
+        {{general.section_page(dynamic_data["aboutReport"]["section_page"])}}
+        {{general.aboutReport(dynamic_data["aboutReport"])}}
+
+        <!-- EXECUTIVE FINDINGS -->
+        {{execfinds.execFindings(dynamic_data["ExecFindings"])}}
+
+        <!-- THEMATIC FINDINGS -->
+        {% for id, macro in thematic_findings.items() %} {% if macro ==
+        "section" %} {{general.section_page( get_thematic_parameters(id,
+        outline, figure_map) )}} {% endif %} {% if macro == "singlepanel" %}
+        {{tf.singlepanel( get_thematic_parameters(id, outline, figure_map) )}}
+        {% endif %} {% if macro == "bipanel" %} {{tf.bipanel(
+        get_thematic_parameters(id, outline, figure_map) )}} {% endif %} {% if
+        macro == "tripanel" %} {{tf.tripanel( get_thematic_parameters(id,
+        outline, figure_map) )}} {% endif %} {% if macro == "quadpanel" %}
+        {{tf.quadpanel( get_thematic_parameters(id, outline, figure_map) )}} {%
+        endif %} {% if macro == "pentapanel" %} {{tf.pentapanel(
+        get_thematic_parameters(id, outline, figure_map) )}} {% endif %} {% if
+        macro == "hexpanel" %} {{tf.hexpanel( get_thematic_parameters(id,
+        outline, figure_map) )}} {% endif %} {% endfor %}
+
+        <!--PROJECT DESIGN -->
+        {{ general.Project(dynamic_data["Project"]) }}
+
+        <!--METHODOLOGY AND DESCRIPTION OF THE SAMPLE-->
+        {{method.methodologySection(dynamic_data)}} {{ method.DS(dynamic_data)
+        }}
+
+        <!--APPENDIX -->
+        {{general.Appendix(dynamic_data["Appendix"])}}
+
+        <!--METHODOLOGICAL MATERIALS-->
+        {{general.MethodologicalMaterials(dynamic_data["methodological_materials"])}}
+
+        <!--ABOUT WJP-->
+        {{general.AboutWJP(dynamic_data["AboutWJP"])}}
+
+        <!--OTHER PUBLICATIONS-->
+        {{general.OtherPublications(dynamic_data["otherPublications"])}}
+
+        <!--BACK COVER-->
+        {{general.logo(dynamic_data["BackCover"])}}
+      </div>
+    </div>
+
+    <a id="ButtonTop" title="Ir arriba" class="btn-top" onClick="clickTop();"
+      ><img src="static/assets/images_layout/icnGoTop.svg" style="width: 16px"
+    /></a>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Popper.JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+      integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#sidebarCollapse").on("click", function () {
+          $("#sidebar").toggleClass("active");
+          $(this).toggleClass("active");
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Cache selectors
+        var topMenu = $(".nav"),
+          topMenuHeight = topMenu.outerHeight() + 15,
+          // All list items
+          menuItems = topMenu.find("a"),
+          // Anchors corresponding to menu items
+          scrollItems = menuItems.map(function () {
+            var item = $($(this).attr("href"));
+            if (item.length) {
+              return item;
+            }
+          });
+        $(window).scroll(function () {
+          var height = $(window).scrollTop();
+          if (height > 550) {
+            $("#ButtonTop").addClass("toTop");
+          } else {
+            $("#ButtonTop").removeClass("toTop");
+          }
+
+          // Get container scroll position
+          var fromTop = $(this).scrollTop() + topMenuHeight;
+          // Get id of current scroll item
+          var cur = scrollItems.map(function () {
+            if ($(this).offset().top < fromTop) return this;
+          });
+          // Get the id of the current element
+          if (cur.length === 11) {
+            cur = cur[cur.length - 9];
+          } else if (cur.length > 11) {
+            cur = cur[cur.length - 1];
+          } else {
+            cur = cur[cur.length - 2];
+          }
+          var id = cur && cur.length ? cur[0].id : "";
+          // Set/remove active class
+          menuItems
+            .parent()
+            .removeClass("active")
+            .end()
+            .filter("[href='#" + id + "']")
+            .parent()
+            .addClass("active");
+        });
+
+        //menu state on / submenu active
+        var selector = "a.btn-level1";
+        var selectorsubmenu = "a.btn-level2";
+
+        /*$(selector).on('click', function(){
+                            $(selector).removeClass('on');
+                            $(this).addClass('on');
+                        });*/
+
+        $("#DropDown").on("click", function () {
+          $("#pageSubmenu").toggleClass("show");
+          $(this).toggleClass("show");
+        });
+
+        $(
+          "#MenuCover, #MenuAbout, #MenuProject, #MenuProject, #MenuDownload"
+        ).on("click", function () {
+          $("#pageSubmenu").removeClass("show");
+          $(".btn-level2").removeClass("active");
+        });
+
+        $(selectorsubmenu).on("click", function () {
+          $(selectorsubmenu).removeClass("active");
+          $(this).addClass("active");
+        });
+
+        $(window).scroll(function () {
+          var height = $(window).scrollTop();
+          if (height > 70) {
+            $("#sidebarCollapse").addClass("movil-icon-menu");
+            $("#sidebar").addClass("movil-menu");
+          } else {
+            $("#sidebarCollapse").removeClass("movil-icon-menu");
+            $("#sidebar").removeClass("movil-menu");
+          }
+        });
+
+        $(window).scroll(function () {
+          var height = $(window).scrollTop();
+          if (height > 70) {
+            $("#sidebarCollapse").addClass("movil-icon-menu");
+            $("#sidebar").addClass("movil-menu");
+          } else {
+            $("#sidebarCollapse").removeClass("movil-icon-menu");
+            $("#sidebar").removeClass("movil-menu");
+          }
+        });
+
+        $(".menuOpt").click(function (e) {
+          $("#sidebar").addClass("active");
+          $("#sidebarCollapse").addClass("active");
+        });
+      });
+
+      function clickTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      $(document).ready(function () {
+        var WindowWidth = $(window).width();
+        if (WindowWidth > 479) {
+          $("#sidebarCollapse").click();
+        } else {
+          $("#sidebarCollapse2").click();
+        }
+      });
+    </script>
+
+    <!-- iframe menu script -->
+    <script>
+      const menu = document.getElementById("embedMenu");
+      window.addEventListener("message", function (e) {
+        console.log(e, arguments);
+        if (e.data === "dropdownOpen") {
+          console.log("toggle on");
+          menu.classList.toggle("fullHeight", true);
+        } else if (
+          e.data === "dropdownClosed" ||
+          e.data === "dropdownClosedViaTimeout"
+        ) {
+          console.log("toggle off");
+          menu.classList.toggle("fullHeight", false);
+        } else if (e.data === "toggleMobileMenu") {
+          menu.classList.toggle("fullHeight");
+        }
+      });
+    </script>
+  </body>
+</html>

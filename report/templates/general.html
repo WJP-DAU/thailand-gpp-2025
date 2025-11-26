@@ -1,0 +1,393 @@
+<!-- COVER PAGE -->
+{% macro cover(section_data) %}
+<section id="Cover" class="bg-page-cover">
+    <!-- <div class="logo-cover">
+        <img src="static/assets/images_layout/logo.svg">
+    </div> -->
+    <div class="container">
+        <div class="text-cover" style="height:calc(100vh - 297px)">
+            <div class="row align-items-end h-100">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-9 leftside-line p-3">
+                            <h1>{{section_data.title}}</h1>
+                            <p class="text-white mb-0">{{section_data.subtitle}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end COVER PAGE -->
+
+<!-- ACKNOWLEDGMENTS  -->
+{% macro acknowledgements(section_data) %}
+{% if section_data.evenPage %}
+<section id="Acknowledgements" class="pb-5">
+{% else %}
+<section id="Acknowledgements" class="bg-page-gray pb-5">
+{% endif %}
+    <div class="container mb-4 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="acknowledgements">Acknowledgements</p>
+            </div>
+            <div class="col-md-11">
+                <p>
+                    {{section_data.text | safe}}
+                </p>
+                <br>
+                <p>
+                    Requests to reproduce this document should be sent to:<br>
+                    <span class="line-separator my-2"></span>
+                    Alejandro Ponce<br>
+                    World Justice Project<br>
+                    1025 Vermont Avenue NW, Suite 1200<br>
+                    Washington, DC 20005, USA<br>
+                    Email: aponce@worldjusticeproject.org
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-5 mb-5 bg-data-Acknowledgements">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-11 bg-light ml-4">
+                    <div class="row p-5 data-Acknowledgements">
+                        <span class="pleca-data"></span>
+                        <div class="col-md-3 mb-3">
+                            <p class="m-0">
+                                <span class="capital-letter">Washington, DC</span><br>
+                                1025 Vermont Avenue NW, Suite 1200
+                                Washington, DC 20005<br>
+                                USA<br>
+                                <span class="capital-letter">P</span> <a class="link-phone" href="tel:+12024079330">+1 (202) 407-9330</a>
+                            </p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <p class="m-0">
+                                <span class="capital-letter">Mexico City</span><br>
+                                Gobernador José Guadalupe Covarrubias
+                                57-20, San Miguel Chapultepec, 11850,<br>
+                                Miguel Hidalgo, Mexico City<br>
+                                <a href="https://worldjusticeproject.mx/" target="_blank" class="c-purple"><i>worldjusticeproject.mx</i></a>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="m-0">
+                                <a href="https://worldjusticeproject.org"><span class="mr-2"><img src="static/assets/images_layout/web.svg" width="20px" /></span>worldjusticeproject.org</a>
+                                <a href="https://www.facebook.com/thewjp/"><span class="mr-2"><img src="static/assets/images_layout/fb.svg" width="20px" /></span>facebook.com/thewjp/</a>
+                                <a href="https://twitter.com/TheWJP"><span class="mr-2"><img src="static/assets/images_layout/sm-x.svg" width="20px" /></span>twitter.com/TheWJP</a>
+                                <a href="https://www.linkedin.com/company/the-world-justice-project/mycompany/"><span class="mr-2"><img src="static/assets/images_layout/sm-lin.svg" width="20px" /></span>@the-world-justice-project</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end ACKNOWLEDGMENTS  -->
+
+<!-- TABLE of CONTENTS  -->
+{% macro toc(toc_data) %}
+{% if toc_data.evenPage %}
+<section class="print table-contents">
+{% else %}
+<section class="bg-page-gray print table-contents">
+{% endif %}
+    <div class="container">
+        <div class="row justify-content-center py-5">
+            <div class="col-sm-8 col-md-7 mt-5">
+                
+                <p class="title-p">TABLE OF CONTENTS</p>
+                {% for id, items in toc_data.items() %}
+                    {% if items["subsection_header"] == "None" %}
+                        <p class="mb-0 mt-4" style="color:#482d8a"><a href="#{{id}}"><em class="ff-a">{{items["section_header"]}}</em></a></p>
+                    {% endif %}
+                    {% if items["subsection_header"] != "None" %}
+                    <p class="li mb-0"><a href="#{{id}}"><span>{{items["page"]}}</span>{{items["subsection_header"]}}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end TABLE of CONTENTS  -->
+
+<!-- SECTION PAGE -->
+{% macro section_page(section_data) %}
+<section id="{{section_data.id}}" class="bg-purple">
+    <div class="container">
+        <div class="height85vh">
+            <div class="row h-100 p-5">
+                <div class="col-12">
+                    <div class="row align-items-center h-100">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 border-left pl-4">
+                                    <h3 class="text-white mb-0">
+                                        {{section_data.header}}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mt-5">
+                                <div class="col-md-4">
+                                    {% for _, row in section_data["toc"].iterrows() %}
+                                        <p class="li mb-0 text-white"><span class="hide-number">{{row["page"]}}</span><a href="#{{row['id']}}">{{row["subsection_header"]}}</a></p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end SECTION PAGE  -->
+
+<!-- ABOUT THIS REPORT -->
+{% macro aboutReport(section_data) %}
+{% if section_data.evenPage %}
+<section id="AboutThisReport">
+{% else %}
+<section id="AboutThisReport" class="bg-page-gray">
+{% endif %}
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">ABOUT THIS REPORT</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        {{section_data.text | safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if section_data.evenPage %}
+        <div class="page-number left-number"><b>{{section_data.page}}</b> {{section_data.header}}</div>
+    {% else %}
+        <div class="page-number">{{section_data.header}} <b>{{section_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+<!-- end ABOUT THIS REPORT -->
+
+<!-- PROJECT DESIGN (purple background) -->
+{% macro Project(section_data) %}
+<section id="Project" class="bg-purple">
+    <div class="container">
+        <div class="height85vh">
+            <div class="row h-100 p-5">
+                <div class="col-12">
+                    <div class="row align-items-center h-100">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 border-left pl-4">
+                                    <h3 class="text-white mb-0">
+                                        PROJECT DESIGN
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mt-5">
+                                <div class="col-md-4">
+                                    <p class="li mb-0 text-white pl-5"><span class="hide-number">23</span><a href="#Methodology">Methodology</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end PROJECT DESIGN -->
+
+
+ <!-- APPENDIX (purple background) -->
+ {% macro Appendix(section_data) %}
+ <section id="Appendix" class="bg-purple">
+    <div class="container">
+        <div class="height85vh">
+            <div class="row h-100 p-5">
+                <div class="col-12">
+                    <div class="row align-items-center h-100">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 border-left pl-4">
+                                    <h3 class="text-white mb-0">
+                                        APPENDIX
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mt-5">
+                                <div class="col-md-4">
+                                    <p class="li mb-0 text-white pl-5"><span class="hide-number">26 </span> <a href="#MethodologicalMaterials">Appendix</a></p>
+                                    <p class="li mb-0 text-white pl-5"><span class="hide-number">27 </span> <a href="#AboutTheWJP">About the WJP</a></p>
+                                    <p class="li text-white pl-5"><span class="hide-number">28 </span> <a href="#OtherPublications">Other Publications</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}
+<!-- end APPENDIX -->
+
+<!--METHODOLOGICAL MATERIALS-->
+{% macro MethodologicalMaterials(section_data) %}
+<section id="MethodologicalMaterials">
+    <div class="container mb-4 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 my-4">
+                <p class="title-p mb-0">APPENDIX</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-11">
+                <p class="subtitle-p-dark mt-2">Methodological Materials</p>
+                {% for index in range(section_data.name|length) %}
+                    {% if section_data.name[index] %}
+                        <p class="fs-20 mb-0"><b>{{ section_data.name[index] }}</b></p>
+                    {% endif %}
+                    {% if section_data.description[index] %}
+                        <p class="mb-4">{{ section_data.description[index] }}</p>
+                    {% endif %}
+                    {% if section_data.link1[index] and section_data.label1[index] %}
+                        <p class="mb-4 italic-underline">
+                            <a href="{{ section_data.link1[index] }}" target="_blank" class="c-purple">{{ section_data.label1[index] }}</a>
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if section_data.evenPage %}
+        <div class="page-number left-number"><b>{{ section_data.page }}</b> {{ section_data.header }}</div>
+    {% else %}
+        <div class="page-number">{{ section_data.header }} <b>{{ section_data.page }}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+<!--END OF METHODOLOGICAL MATERIALS-->
+
+
+
+
+
+
+<!-- ABOUT THE WORLD JUSTICE PROJECT (page 41) -->
+{% macro AboutWJP(section_data) %}
+<section id="AboutTheWJP" class="cont-about-justice bg-page-gray">
+    <div class="container mb-4 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 my-4">
+                <div class="row">
+                    <div class="col-md-9 my-4">
+                        <img src="static/assets/images_layout/logoWJP.svg" width="285px" alt="WJP"/>
+                    </div>
+                    <div class="col-md-9 text-about-justice">
+                        <p class="title-p mb-0 my-4">ABOUT THE WORLD JUSTICE PROJECT</p>
+                        <p class="mb-4">
+                            The World Justice Project (WJP) is an independent, multidisciplinary organization working to create knowledge, build awareness, and stimulate action to advance the rule of law worldwide. Effective rule of law is the foundation for communities of justice, opportunity, and peace–underpinning development, accountable government, and respect for fundamental rights.
+                        </p>
+                        <p class="mb-4">
+                            The WJP builds and supports a global, multidisciplinary movement for the rule of law through three lines of work: collecting, organizing, and analyzing original, independent rule of law data, including the <i>World Justice Project Rule of Law Index®</i>; supporting research, scholarship, and teaching about the importance of the rule of law, its relationship to development, and effective strategies to strengthen it; and connecting and building an engaged global network of policymakers and advocates to advance the rule of law through strategic partnerships, convenings, coordinated advocacy, and support for locally led initiatives.
+                        </p>
+
+                        <p>
+                            Learn more at: <a class="c-purple" href="https://worldjusticeproject.org" target="_blank"><i>worldjusticeproject.org.</i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if section_data.evenPage %}
+        <div class="page-number left-number"><b>{{section_data.page}}</b> {{section_data.header}}</div>
+    {% else %}
+        <div class="page-number">{{section_data.header}} <b>{{section_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+<!-- end ABOUT THE WORLD JUSTICE PROJECT -->
+
+<!-- OTHER PUBLICATIONS -->
+{% macro OtherPublications(section_data) %}
+<section id="OtherPublications">
+    <div class="container mb-4 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 my-4">
+                <p class="title-p mb-0">OTHER PUBLICATIONS</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-11">
+                <p class="mb-3">
+                    For more information click on the publication.
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3 cont-other-publications">
+            <div class="col-md-11">
+                <div class="row my-4">
+                    {% for publication in section_data.publications %}
+                    <div class="col-6 col-sm-6 col-md-4 mb-4">
+                        <div class="wrap-image" onclick="window.open('{{ publication.onClick }}', '_blank')">
+                            <img src="{{ publication.img }}" class="w-100" />
+                            <p><a href="{{ publication.href }}"><span>{{ publication.text }}</span></a></p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if section_data.evenPage %}
+        <div class="page-number left-number"><b>{{section_data.page}}</b> {{section_data.header}}</div>
+    {% else %}
+        <div class="page-number">{{section_data.header}} <b>{{section_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+<!--END OF OTHER PUBLICATIONS-->
+
+ <!-- WJP LOGO -->
+  {% macro logo(section_data) %}
+ <section class="back-cover pb-4">
+    <div class="container mb-4 pt-5 pb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <p>
+                    <img src="static/assets/images_layout/logo.svg" width="285px" alt="WJP"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- {% if section_data.evenPage %}
+        <div class="page-number left-number"><b>{{section_data.page}}</b> {{section_data.header}}</div>
+    {% else %}
+        <div class="page-number">{{section_data.header}} <b>{{section_data.page}}</b></div>
+    {% endif %} -->
+</section>
+{% endmacro %}
+<!-- end WJP LOGO -->
+
+
+
+

@@ -1,0 +1,128 @@
+{% macro methodologySection(dynamic_data) %}
+    <section id="Methodology">
+        <div class="container mb-4 pt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-11 my-4">
+                    <p class="title-p mb-0">METHODOLOGY</p>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-11">
+                    {% for section in dynamic_data["methodology"]["text"] %}
+                        {% if section.title == "DATA COLLECTION" %}
+                            <p class="fs-20 mb-0"><b>{{ section.title }}</b></p>
+                            <p class="mb-4">{{ section.content | safe }}</p>
+                        {% elif section.title == "SAMPLE SIZE AND SAMPLE FRAME" %}
+                            <p class="mb-0 c-purple"><b>{{ section.title }}</b></p>
+                            <p class="mb-4">{{ section.content | safe }}</p>
+                        {% elif section.title == "SAMPLING" %}
+                            <p class="mb-0 c-purple"><b>{{ section.title }}</b></p>
+                            <p class="mb-4">{{ section.content | safe }}</p>
+                        {% elif section.title == "INTERVIEWING AND QUALITY CONTROL" %}
+                            <p class="mb-0 c-purple"><b>{{ section.title }}</b></p>
+                            <p class="mb-4">{{ section.content | safe }}</p>
+                        {% else %}
+                            <p>{{ section.content | safe }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if dynamic_data["methodology"]["evenPage"] %}
+            <div class="page-number left-number"><b>{{dynamic_data["methodology"]["page"]}}</b> {{dynamic_data["methodology"]["header"]}}</div>
+        {% else %}
+            <div class="page-number">{{dynamic_data["methodology"]["header"]}} <b>{{dynamic_data["methodology"]["page"]}}</b></div>
+        {% endif %}
+    </section>
+{% endmacro %}
+
+
+
+<!-- DESCRIPTION OF THE SAMPLE -->
+{% macro DS(dynamic_data) %}
+    <section id="DescriptionSample">
+        <div class="container mb-4 pt-5">
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="bg-light p-4">
+                                <div class="row">
+                                    <div class="col bl-purple ml-3 mb-4">
+                                        <p class="fs-18 mb-0 ff-a c-purple">DESCRIPTION OF THE SAMPLE</p>
+                                    </div>
+                                    <div class="col-12">
+                                        {% for section in dynamic_data["description_sample"]["text"] %}
+                                            {% if section.title in ["COVERAGE", "GEOGRAPHY", "RACIAL AND ETHNIC BACKGROUND", "GENDER", "EDUCATION"] %}
+                                                <p class="mb-4">
+                                                    <b class="c-purple">{{ section.title }}:</b> {{ section.content | safe }}
+                                                </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            {% for section in dynamic_data["description_sample"]["text"] %}
+                                {% if section.title == "RESPONSE RATES" %}
+                                    <p class="c-purple"><b>RESPONSE RATES</b></p>
+                                    <div class="table-responsive mb-2">
+                                        <table class="table table-sm">
+                                            {% set rows = section.content.split('\n') %}
+                                            {% for row in rows %}
+                                                {% if row %}
+                                                    <tr {% if loop.index0 % 2 == 0 %}class="bg-purple text-white"{% endif %}>
+                                                        <td>{{ row.split(':')[0] }}</td>
+                                                        <td class="text-right">{{ row.split(':')[1] }}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                {% elif section.title == "INTERVIEWING AND QUALITY CONTROL" %}
+                                    <p class="mb-0 c-purple"><b>INTERVIEWING AND QUALITY CONTROL</b></p>
+                                    <p class="mb-4">
+                                        {{ section.content | safe }}
+                                    </p>
+                                {% elif section.title == "DATA REVIEW AND JUSTIFICATION" %}
+                                    <p class="mb-0 c-purple"><b>DATA REVIEW AND JUSTIFICATION</b></p>
+                                    <p class="mb-4">
+                                        {{ section.content | safe }}
+                                    </p>
+                                {% elif section.title == "HISTORICAL DATA" %}
+                                    <p class="mb-0 c-purple"><b>HISTORICAL DATA</b></p>
+                                    <p class="mb-4">
+                                        {{ section.content | safe }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if dynamic_data["description_sample"]["evenPage"] %}
+            <div class="page-number left-number"><b>{{dynamic_data["description_sample"]["page"]}}</b> {{dynamic_data["description_sample"]["header"]}}</div>
+        {% else %}
+            <div class="page-number">{{dynamic_data["description_sample"]["header"]}} <b>{{dynamic_data["description_sample"]["page"]}}</b></div>
+        {% endif %}
+    </section>
+{% endmacro %}
+<!--END OF DESCRIPTION OF THE SAMPLE-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

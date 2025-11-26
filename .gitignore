@@ -18,3 +18,10 @@ data-viz/outputs/roli_dots_E.svg
 data-viz/outputs/roli_dots_F.svg
 data-viz/outputs/roli_dots_G.svg
 data-viz/outputs/roli_dots_H.svg
+report/static/charts_and_images
+.svg
+*.svg
+*.jpg
+*.docx
+*.md
+report/index.html

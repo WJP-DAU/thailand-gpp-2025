@@ -1,0 +1,44 @@
+{% macro execFindings(section_data) %}
+    {% for id, data in section_data.items() %}
+        <section id="{{id}}" class="ExecutiveFindings_general">
+            <div class="container mb-0 pt-0">
+                {% if id == "ExecutiveFindings1" %}
+                <div class="row justify-content-center">
+                    <div class="col-md-11 mt-4">
+                        <p class="title-p">EXECUTIVE FINDINGS</p>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-12 mb-0">
+                                {% for paragraph in data.content %}
+                                    {% if "EXECUTIVE FINDINGS" not in paragraph %}
+                                        {% if "## SECTION" in paragraph %}
+                                            <div class="col bl-purple title-section">
+                                                <p class="mt-4 mb-0 ff-a c-purple sectitle">{{paragraph.split(": ")[0].replace("##", "")}}</p>
+                                                <p class="fs-20 sectitle"><b>{{paragraph.split(": ")[1].strip()}}</b></p>
+                                            </div>
+                                        {% elif "###" in paragraph %}
+                                            <p class="mt-3 mb-1">
+                                                <span class="subtitle-p">{{paragraph.replace("###", "").strip()}}</span><br>
+                                            </p>
+                                        {% else %}
+                                            <p>{{paragraph|safe}}</p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if data.evenPage %}
+                <div class="page-number left-number"><b>{{data.page}}</b> {{data.subsection_header}}</div>
+            {% else %}
+                <div class="page-number">{{data.subsection_header}} <b>{{data.page}}</b></div>
+            {% endif %}
+        </section>
+    {% endfor %}
+{% endmacro %}

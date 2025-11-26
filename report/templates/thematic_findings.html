@@ -1,0 +1,457 @@
+<!-- SINGLEPANEL TEMPLATE -->
+{% macro singlepanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="singlepanel">
+{% else %}
+<section id="{{page_data.id}}" class="singlepanel bg-page-gray">
+{% endif %}
+    <div class="container pt-5">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-2">
+        {% else %}
+        <div class="row justify-content-center mb-2 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>                            
+                <p><i>{{chart_parameters.chart_insight}}</i><br></p>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center mb-2">
+            <div class="col-md-11">
+                <p><i>{{chart_parameters.chart_insight}}</i><br></p>
+            </div>
+        </div> -->
+        {% if chart_parameters.legend != "None" %}
+        <div class="row justify-content-center mb-0">
+            <div class="col-md-11">
+                <p>
+                    {% for key, color in chart_parameters.legend.items() %}
+                    <span class="bullet" style="background:{{color}}"></span><span class="mr-4">{{key}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mb-4">
+                <img src="{{chart_parameters.panels.A.imgPath}}" class="img-chart">
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 foot-note">
+            <div class="col-md-11 mb-0">
+                {% if chart_parameters.footnote != "None" %}
+                <p class="reference">
+                    <small>{{chart_parameters.footnote}}</small>
+                </p>
+                {% endif %}
+                <p class="reference">
+                    <small>{{chart_parameters.source}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+<!-- BIPANEL TEMPLATE -->
+{% macro bipanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="bipanel">
+{% else %}
+<section id="{{page_data.id}}" class="bipanel bg-page-gray">
+{% endif %}
+    <div class="container pt-5">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-1">
+        {% else %}
+        <div class="row justify-content-center mb-1 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>
+                <p class="mb-0"><i>{{chart_parameters.chart_insight}}</i></p>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center mb-2">
+            <div class="col-md-11 rounded-gray-box">
+                <p><i>{{chart_parameters.chart_insight}}</i><br></p>
+            </div>
+        </div> -->
+        {% if chart_parameters.legend != "None" %}
+        <div class="row justify-content-center mt-0 mb-2">
+            <div class="col-md-11">
+                <p>
+                    {% for key, color in chart_parameters.legend.items() %}
+                    <span class="bullet" style="background:{{color}}"></span><span class="mr-4">{{key}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        {% for panel, panel_parameters in chart_parameters.panels.items() %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mb-5">
+                <img src="{{panel_parameters.imgPath}}" class="w-85 img-chart">
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-11 mb-0">
+                {% if chart_parameters.footnote != "None" %}
+                <p class="reference">
+                    <small>{{chart_parameters.footnote}}</small>
+                </p>
+                {% endif %}
+                <p class="reference">
+                    <small>{{chart_parameters.source}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+<!-- TRIPANEL TEMPLATE -->
+{% macro tripanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="tripanel">
+{% else %}
+<section id="{{page_data.id}}" class="tripanel bg-page-gray">
+{% endif %}
+    <div class="container pt-4">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-3">
+        {% else %}
+        <div class="row justify-content-center mb-3 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>
+                <p class="mb-2"><i>{{chart_parameters.chart_subtitle}}</i></p>
+            </div>
+        </div>
+        {% for panel, panel_parameters in chart_parameters.panels.items() %}
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-11">
+                <p class="mb-0"><b><span class="lateral-bar">|</span> {{panel_parameters.panel_title}}</b></p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-11 mb-2">
+                <img src="{{panel_parameters.imgPath}}" class="img-chart">
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row justify-content-center mt-4 foot-note">
+            <div class="col-md-11 mb-0">
+                {% if chart_parameters.footnote != "None" %}
+                <p class="reference">
+                    <small>{{chart_parameters.footnote}}</small>
+                </p>
+                {% endif %}
+                <p class="reference">
+                    <small>{{chart_parameters.source}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+<!-- QUADPANEL TEMPLATE -->
+ {% macro quadpanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="quadpanel">
+{% else %}
+<section id="{{page_data.id}}" class="quadpanel bg-page-gray">
+{% endif %}
+    <div class="container pt-5">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-2">
+        {% else %}
+        <div class="row justify-content-center mb-2 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>
+                <p class="mb-2"><i>{{chart_parameters.chart_insight}}</i></p>
+            </div>
+        </div>
+        {% if chart_parameters.legend != "None" and page_data.legend == "Chart" %}
+        <div class="row justify-content-center mt-0 mb-2">
+            <div class="col-md-11">
+                <p>
+                    {% for key, color in chart_parameters.legend.items() %}
+                    <span class="bullet" style="background:{{color}}"></span><span class="mr-4">{{key}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <div class="row">
+                    {% for panel, panel_parameters in chart_parameters.panels.items() %}
+                    <div class="col-md-6 mb-5">
+                        <p class="mb-4">
+                            {% if panel_parameters.panel_title and panel_parameters.panel_title != "None" %}
+                            <b><span class="lateral-bar">|</span> {{panel_parameters.panel_title}}</b>
+                            {% else %}
+                            <br>
+                            {% endif %}
+                        </p>
+                        {% if panel_parameters.panel_subtitle and panel_parameters.panel_subtitle != "None" %}
+                        <p class="mb-3"><i>{{panel_parameters.panel_subtitle}}</i></p>
+                        {% endif %}
+                        
+                        {% if panel_parameters.legend != "None" and page_data.legend == "Panel" %}
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-md-11">
+                                <p>
+                                    {% for key, color in panel_parameters.legend.items() %}
+                                    <span class="bullet ml-0" style="background:{{color}}"></span><span class="mr-4">{{key}}</span>
+                                    {% if key|length > 15 %}<br>{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                         {% endif %}
+ 
+                         <img src="{{panel_parameters.imgPath}}" class="img-chart size-custom-figure12d">
+ 
+                        {% if panel_parameters.panel_title == "The Police" %}
+                        <br>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 foot-note">
+            <div class="col-md-11 mb-0">
+                {% if chart_parameters.footnote != "None" %}
+                <p class="reference">
+                    <small>{{chart_parameters.footnote}}</small>
+                </p>
+                {% endif %}
+                <p class="reference">
+                    <small>{{chart_parameters.source}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+<!-- PENTAPANEL TEMPLATE -->
+{% macro pentapanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="pentapanel">
+{% else %}
+<section id="{{page_data.id}}" class="pentapanel bg-page-gray">
+{% endif %}
+    <div class="container pt-4">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-3">
+        {% else %}
+        <div class="row justify-content-center mb-3 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>
+                <p class="mb-2"><i>{{chart_parameters.chart_subtitle}}</i></p>
+            </div>
+        </div>
+            {% for panel, panel_parameters in chart_parameters.panels.items() %}
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-11 mb-4">
+                    <div class="row">
+                        <div class="col-md-5 mb-4">
+                            <p class="mb-0">
+                                <span class="bullet-square bg-red"></span><span class="text-chart">Legend 1</span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="bullet-square bg-navy"></span><span class="text-chart">Legend 2 </span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="bullet-square bg-gray"></span><span class="text-chart">Legend 3</span>
+                            </p>
+                        </div>
+                        <div class="col-md-7" style="padding-left:75px">
+                            <img src="{{panel_parameters.imgPath}}" class="w-50 img-chart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row justify-content-center mt-4 foot-note">
+                <div class="col-md-11 mb-0">
+                    {% if chart_parameters.footnote != "None" %}
+                    <p class="reference">
+                        <small>{{chart_parameters.footnote}}</small>
+                    </p>
+                    {% endif %}
+                    <p class="reference">
+                        <small>{{chart_parameters.source}}</small>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+<!-- HEXPANEL TEMPLATE -->
+{% macro hexpanel(page_data) %}
+{% if page_data.evenPage %}
+<section id="{{page_data.id}}" class="hexpanel">
+{% else %}
+<section id="{{page_data.id}}" class="hexpanel bg-page-gray">
+{% endif %}
+    <div class="container pt-5">
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                <p class="title-p">{{page_data.subsection_header}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% for chart, chart_parameters in page_data.charts.items() %}
+        {% if page_data.has_subsection %}
+        <div class="row justify-content-center mb-2">
+        {% else %}
+        <div class="row justify-content-center mb-2 pt-5">
+        {% endif %}
+            <div class="col-md-11 ml-4 bl-purple">
+                <p class="mb-0 ff-a c-purple">{{chart_parameters.ChartNo}}</p>
+                <p class="fs-20 mb-0"><b>{{chart_parameters.chart_title}}</b></p>
+                <p class="mb-2"><i>{{chart_parameters.chart_insight}}</i></p>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center mb-2">
+            <div class="col-md-11">
+                <p><i>{{chart_parameters.chart_insight}}</i><br></p>
+            </div>
+        </div> -->
+        {% if chart_parameters.legend != "None" %}
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <p>
+                    {% for key, color in chart_parameters.legend.items() %}
+                    <span class="bullet" style="background:{{color}}"></span><span class="mr-4">{{key}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <div class="row">
+                    {% for panel, panel_parameters in chart_parameters.panels.items() %}
+                    <div class="col-md-6 mb-5">
+                        <p class="mb-4">
+                            {% if panel_parameters.panel_title and panel_parameters.panel_title != "None" %}
+                            <b><span class="lateral-bar">|</span> {{panel_parameters.panel_title}}</b>
+                            {% else %}
+                            <br>
+                            {% endif %}
+                        </p>
+                        {% if panel_parameters.panel_subtitle and panel_parameters.panel_subtitle != "None" %}
+                        <p class="mb-3"><i>{{panel_parameters.panel_subtitle}}</i></p>
+                        {% endif %}
+                        <img src="{{panel_parameters.imgPath}}" class="img-chart">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 foot-note">
+            <div class="col-md-11 mb-0">
+                {% if chart_parameters.footnote != "None" %}
+                <p class="reference">
+                    <small>{{chart_parameters.footnote}}</small>
+                </p>
+                {% endif %}
+                <p class="reference">
+                    <small>{{chart_parameters.source}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_data.evenPage %}
+    <div class="page-number left-number"><b>{{page_data.page}}</b> {{page_data.section_header}}</div>
+    {% else %}
+    <div class="page-number">{{page_data.section_header}} <b>{{page_data.page}}</b></div>
+    {% endif %}
+</section>
+{% endmacro %}

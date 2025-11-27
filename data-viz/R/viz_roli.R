@@ -185,22 +185,22 @@ gen_roli_dots.fn <- function(roli_data){
          
          # Defining height
          if (max(data2plot$order_var) == 3 ) {
-           h = 1.25
+           h = 0.75
          }
          if (max(data2plot$order_var) == 4 ) {
-           h = 1.5
+           h = 1.15
          }
          if (max(data2plot$order_var) == 5 ) {
-           h = 1.75
+           h = 1.45
          }
          if (max(data2plot$order_var) == 6 ) {
-           h = 2
+           h = 1.64
          }
          if (max(data2plot$order_var) == 7 ) {
-           h = 2.25
+           h = 2
          }
          if (max(data2plot$order_var) == 8 ) {
-           h = 2.5
+           h = 2.25
          }
          
          # Saving panels
@@ -215,7 +215,7 @@ gen_roli_dots.fn <- function(roli_data){
                paste0("roli_dots_",panelName,".svg")
                ),
            plot = chart,
-           width = 5,
+           width = 4,
            height = h
          )
          

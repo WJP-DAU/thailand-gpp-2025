@@ -18,7 +18,8 @@ path2merge <- paste0(
 target_variables <- c(
   # Fundamental Freedoms
   "q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2", "q46d_G2", 
-  "q46f_G1", "q46a_G2", "q46d_G1", "q46e_G1", "q46h_G2",
+  "q46f_G1", "q46a_G2", "q46d_G1", "q46e_G1", "q46h_G2", "q46i_G1", 
+  "q46a_G1", "q46b_G1", "q46b_G2", "q46j_G1",
   
   # Discrimination
   "discrimination1",

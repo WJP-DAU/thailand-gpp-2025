@@ -98,17 +98,24 @@ data_tabs <- purrr::imap(
             variable == "q46g_G2" ~ "Political parties can express opinions against the government",
             variable == "q46c_G1" ~ "The media can express opinions against the government without fear of retaliation",
             variable == "q46e_G2" ~ "The media can expose cases of corruption",
+            variable == "q46i_G1" ~ "The media are free to report the news independently",
             variable == "q46d_G2" ~ "People can attend community meetings",
             variable == "q46f_G1" ~ "People can join any political organization",
             variable == "q46a_G2" ~ "People can organize around an issue or petition",
+            variable == "q46j_G1" ~ "Civil society organizations participate in policy-making with the government",
             variable == "q46a_G2" ~ "Local government officials are elected through a clean process",
             variable == "q46e_G1" ~ "People can vote freely without feeling harassed or pressured",
+            variable == "q46a_G1" ~ "Basic laws are explained in simple, easy-to-understand language",
+            variable == "q46b_G1" ~ "Basic laws are available in all official languages",
+            variable == "q46b_G2" ~ "Workers are free to form labor unions and negotiate with employers to defend their rights",
             variable == "q46h_G2" ~ "Religious minorities can observe their holy days"
           ),
           panel = dplyr::case_when(
-            variable %in% c("q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2") ~ "Expression",
-            variable %in% c("q46d_G2", "q46f_G1", "q46a_G2") ~ "Participation",
+            variable %in% c("q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2", "q46i_G1") ~ "Expression",
+            variable %in% c("q46d_G2", "q46f_G1", "q46a_G2", "q46j_G1") ~ "Participation",
             variable %in% c("q46a_G2", "q46e_G1") ~ "Elections",
+            variable %in% c("q46a_G1", "q46b_G1") ~ "Legal Information",
+            variable %in% c("q46b_G2") ~ "Labor Rights",
             variable %in% c("q46h_G2") ~ "Religion"
           )
         )
@@ -326,7 +333,7 @@ data_viz <- purrr::imap(
       }
       
       w <- 14
-      h <- 6
+      h <- 9
     }
     
     if (type == "Single Dumbbells") {

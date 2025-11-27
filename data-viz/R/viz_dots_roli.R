@@ -149,8 +149,7 @@ ROLI_dots <- function(
     scale_color_manual(values = colors) +
     scale_y_continuous(limits = ylimits,
                        breaks = ybreaks,
-                       labels = paste0(ybreaks,
-                                       "%"),
+                       labels = paste0(ybreaks),
                        position = "right") +
     coord_flip() +
     theme(panel.background   = element_blank(),

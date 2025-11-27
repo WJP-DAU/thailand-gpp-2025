@@ -7,7 +7,8 @@ outline <- list(
     chart_subtitle = "Percentage of respondents who agree or strongly agree on the following statements…",
     var_id = c(
       "q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2", "q46d_G2", "q46f_G1", 
-      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2"
+      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2", "q46i_G1", "q46a_G1", "q46b_G1",
+      "q46b_G2", "q46j_G1"
     ),
     reportValues = c("1", "2"),
     panel_title = "Expression",
@@ -426,6 +427,6 @@ outline <- list(
     legend_color = c("#2a2a94", "#a90099", "#3273ff"),
     sample = "National",
     years = c("2018", "2025")
-  )
+  ),
   
 )

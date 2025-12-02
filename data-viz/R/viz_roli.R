@@ -169,19 +169,21 @@ gen_roli_dots.fn <- function(roli_data){
          data2plot <- data2plot %>%
            filter(factor %in% cfactor)
          
-         chart <- ROLI_dots(   data         = data2plot,
-                               target_var   = "value2plot",
-                               sd_var = NULL,
-                               n_obs  = NULL,
-                               grouping_var = "country",
-                               labels_var   = "category",
-                               colors       = colors4plot,
-                               order_var    = "order_var",
-                               diffShp      = T,
-                               shapes       = shapes4plot,
-                               draw_ci      = F,
-                               y_upper      = 1,
-                               dsize        = 2.5)
+         chart <- ROLI_dots(
+           data         = data2plot,
+           target_var   = "value2plot",
+           sd_var       = NULL,
+           n_obs        = NULL,
+           grouping_var = "country",
+           labels_var   = "category",
+           colors       = colors4plot,
+           order_var    = "order_var",
+           diffShp      = T,
+           shapes       = shapes4plot,
+           draw_ci      = F,
+           y_upper      = 1,
+           dsize        = 2.5
+         )
          
          # Defining height
          if (max(data2plot$order_var) == 3 ) {

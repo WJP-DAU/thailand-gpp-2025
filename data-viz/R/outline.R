@@ -446,7 +446,7 @@ outline <- list(
     legend_color = c("#2a2a94", "#a90099", "#3273ff"),
     sample = "National",
     years = c("2018", "2025")
-  ),
+  )
   
   "Figure_11_A" = list(
     figure_id = "Figure_11_A",

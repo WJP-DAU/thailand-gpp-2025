@@ -17,6 +17,10 @@ gen_waffle <- function(value){
     legend_pos = "left"
   ) +
     theme(
-      legend.text = element_text(size=14)
+      legend.text = element_text(
+        size   = 14,
+        family = "inter",
+        face   = "plain",
+      )
     )
 }

@@ -43,7 +43,8 @@ southeast_asia <- c(
 roli_data <- readxl::read_excel("../data/ROLI_data.xlsx") %>%  
   filter(country %in% southeast_asia)
 
-#WJPr::wjp_fonts()
+# WJPr::wjp_fonts()
+load_inter_fonts()
 
 #Loading fonts
 path2fonts <- file.path(

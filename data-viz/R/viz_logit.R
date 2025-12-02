@@ -32,7 +32,7 @@ gen_logit <- function(){
     )
   
   model_logit <- glm(
-    safe~female+young+rural+fin+higher_edu,
+    safe~female+young+rural+fin+higher_edu+crime4,
     family  = binomial(link = "logit"),
     data    = data4logit
   )
@@ -43,11 +43,12 @@ gen_logit <- function(){
     data = mgeffects %>% 
       mutate(
         label = case_when(
-          term == "female" ~ "Female",
-          term == "fin" ~ "Financially Constrained",
           term == "higher_edu" ~ "Higher Education",
-          term == "rural" ~ "Rural",
-          term == "young" ~ "Young Adult",
+          term == "fin" ~ "Financially Constrained",
+          term == "female" ~ "Female",
+          term == "rural"  ~ "Rural",
+          term == "young"  ~ "Young Adult",
+          term == "crime4" ~ "Previous Crime Victim",
         )
       ),
     aes(
@@ -57,7 +58,8 @@ gen_logit <- function(){
   ) +
     geom_vline(
       xintercept=0,
-      linetype="dashed"
+      linetype="solid",
+      color="red"
     ) +
     geom_segment(
       aes(
@@ -74,9 +76,20 @@ gen_logit <- function(){
       size  = 3.5,
       color = "#575796"
     ) +
+    scale_x_continuous(
+      position = "top",
+      limits = c(-0.3, +0.3),
+      breaks = seq(-3, +0.3, 0.1)
+    ) +
+    labs(x = "Less likely                                 More likely\n") +
     theme_minimal() +
     theme(
-      axis.title.x = element_blank(),
+      axis.title.x = element_text(
+        family = "inter",
+        face   = "plain",
+        color  = "#1a1a1a",
+        size   = 11
+      ),
       axis.title.y = element_blank(),
       axis.text.x  = element_text(
         family = "inter",
@@ -92,7 +105,11 @@ gen_logit <- function(){
         color  = "#1a1a1a"
       ),
       panel.grid.major.y = element_blank(),
-      # panel.grid.major.x = element_blank(),
+      panel.grid.major.x = element_line(
+        linetype = "dashed",
+        linewidth = 0.5,
+        color = "grey75"
+      ),
       panel.background   = element_blank(),
       plot.background    = element_blank(),
       axis.line.x.top = element_line(

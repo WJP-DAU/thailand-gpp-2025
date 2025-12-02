@@ -28,7 +28,8 @@ outline <- list(
     chart_subtitle = "Percentage of respondents who agree or strongly agree on the following statements…",
     var_id = c(
       "q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2", "q46d_G2", "q46f_G1", 
-      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2"
+      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2", "q46i_G1", "q46a_G1", "q46b_G1",
+      "q46b_G2", "q46j_G1"
     ),
     reportValues = c("1", "2"),
     panel_title = "Expression",
@@ -36,7 +37,7 @@ outline <- list(
     type = "Large Dumbbells",
     legend_text = c("Urban", "Rural"),
     legend_eqs = c("Urban", "Rural"),
-    legend_color = c("#35605A","#00120B"),
+    legend_color = c("#2a2a94","#a90099"),
     sample = c("Urban", "Rural"),
     years = c("2025")
   ),
@@ -48,7 +49,8 @@ outline <- list(
     chart_subtitle = "Percentage of respondents who agree or strongly agree on the following statements…",
     var_id = c(
       "q46c_G2", "q46f_G2", "q46g_G2", "q46c_G1", "q46e_G2", "q46d_G2", "q46f_G1", 
-      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2"
+      "q46a_G2", "q46a_G2", "q46e_G1", "q46h_G2", "q46i_G1", "q46a_G1", "q46b_G1",
+      "q46b_G2", "q46j_G1"
     ),
     reportValues = c("1", "2"),
     panel_title = "Expression",
@@ -56,7 +58,7 @@ outline <- list(
     type = "Large Dumbbells",
     legend_text = c("Female", "Male"),
     legend_eqs = c("Female", "Male"),
-    legend_color = c("#35605A","#00120B"),
+    legend_color = c("#a90099","#2a2a94"),
     sample = c("Female", "Male"),
     years = c("2025")
   ),
@@ -373,8 +375,25 @@ outline <- list(
     type = "Radar",
     legend_text = c("Female", "Male"),
     legend_eqs = c("Female", "Male"),
-    legend_color = c("#35605A","#00120B"),
+    legend_color = c("#a90099","#2a2a94"),
     sample = c("Female", "Male"),
+    years = c("2025")
+  ),
+  
+  "Figure_9_X" = list(
+    figure_id = "Figure_9",
+    panel = "A",
+    chart_title = "Perceptions of the Criminal Justice System in Thailand, by gender",
+    chart_subtitle = "Percentage of respondents who are confident or very confident that the criminal justice system…",
+    var_id = c("q49a", "q49b_G2", "q49e_G2", "q49c_G2", "q49e_G1", "q49d_G1", "q49c_G1", "q49b_G1"),
+    reportValues = c("1", "2"),
+    panel_title = "None",
+    panel_subtitle = "None",
+    type = "Radar",
+    legend_text = c("Urban", "Rural"),
+    legend_eqs = c("Urban", "Rural"),
+    legend_color = c("#2a2a94","#a90099"),
+    sample = c("Urban", "Rural"),
     years = c("2025")
   ),
 
@@ -428,5 +447,194 @@ outline <- list(
     sample = "National",
     years = c("2018", "2025")
   ),
+  
+  "Figure_11_A" = list(
+    figure_id = "Figure_11_A",
+    panel = "A",
+    chart_title = "Attitudes Towards Authoritarianism and Rule of Law",
+    chart_subtitle = "Percentage of respondents who agree with the following statements",
+    var_id = c("att_aut_p1_p", "att_aut_p1_n", "att_aut_p1_na"),
+    reportValues = c("1"),
+    panel_title = "Goverment efficiency",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Donut",
+    legend_text = c("It is important that citizens have a say in government matters, even at the expense of efficiency",
+                    "Government efficiency is more important than citizen influence", 
+                    "None of the above/Prefer not to answer"),
+    legend_eqs = c("att_aut_p1_p", "att_aut_p1_n", "att_aut_p1_na"),
+    legend_color = c("#003B88", "#fa4d57", "#B5B5B5"),
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_11_B" = list(
+    figure_id = "Figure_11_B",
+    panel = "B",
+    chart_title = "Attitudes Towards Authoritarianism and Rule of Law",
+    chart_subtitle = "Percentage of respondents who agree with the following statements",
+    var_id = c("att_aut_p2_p", "att_aut_p2_n", "att_aut_p2_na"),
+    reportValues = c("1"),
+    panel_title = "Goverment efficiency",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Donut",
+    legend_text = c("The president should not be bound by the law or courts", 
+                    "The president must respect the media, civil society, and opposition groups", 
+                    "None of the above/Prefer not to answer"),
+    legend_eqs = c("att_aut_p2_p", "att_aut_p2_n", "att_aut_p2_na"),
+    legend_color = c("#003B88", "#fa4d57", "#B5B5B5"),
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_11_C" = list(
+    figure_id = "Figure_11_C",
+    panel = "C",
+    chart_title = "Attitudes Towards Authoritarianism and Rule of Law",
+    chart_subtitle = "Percentage of respondents who agree with the following statements",
+    var_id = c("att_aut_p3_p", "att_aut_p3_n", "att_aut_p3_na"),
+    reportValues = c("1"),
+    panel_title = "Goverment efficiency",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Donut",
+    legend_text = c("It is important to obey the government in power, no matter who you voted for", 
+                    "It is not necessary to obey the laws of a government that you did not vote for", 
+                    "None of the above/Prefer not to answer"),
+    legend_eqs = c("att_aut_p2_p", "att_aut_p2_n", "att_aut_p2_na"),
+    legend_color = c("#003B88", "#fa4d57", "#B5B5B5"),
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_11_D" = list(
+    figure_id = "Figure_11_D",
+    panel = "D",
+    chart_title = "Attitudes Towards Authoritarianism and Rule of Law",
+    chart_subtitle = "Percentage of respondents who agree with the following statements",
+    var_id = c("att_aut_p4_p", "att_aut_p4_n", "att_aut_p4_na"),
+    reportValues = c("1"),
+    panel_title = "Judicial Independence",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Donut",
+    legend_text = c("Judges often decide cases under pressure from the government or powerful private companies", 
+                    "Judges usually base their decisions on what the law says", 
+                    "None of the above/Prefer not to answer"),
+    legend_eqs = c("att_aut_p4_p", "att_aut_p4_n", "att_aut_p4_na"),
+    legend_color = c("#003B88", "#fa4d57", "#B5B5B5"),
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_12_A" = list(
+    figure_id = "Figure_12_A",
+    panel = "A",
+    chart_title = "Perceptions of the Police",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree that the police...",
+    var_id = c("q48c_G2", "q48e_G2", "q48d_G1"),
+    reportValues = c("1", "2"),
+    panel_title = "Integrity",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Police bars",
+    legend_text = "None",
+    legend_eqs = "None",
+    legend_color = "None",
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_12_B" = list(
+    figure_id = "Figure_12_B",
+    panel = "B",
+    chart_title = "Perceptions of the Police",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree that the police...",
+    var_id = c("q48b_G2", "q48a_G2", "q48b_G1"),
+    reportValues = c("1", "2"),
+    panel_title = "Crime Control",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Police bars",
+    legend_text = "None",
+    legend_eqs = "None",
+    legend_color = "None",
+    sample = "National",
+    years = c("2025")
+  ),
+ 
+  "Figure_12_C" = list(
+    figure_id = "Figure_12_C",
+    panel = "C",
+    chart_title = "Perceptions of the Police",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree that the police...",
+    var_id = c("q1d", "q2d", "q9"),
+    reportValues = c("1", "2"),
+    panel_title = "Legitimacy",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Police bars",
+    legend_text = "None",
+    legend_eqs = "None",
+    legend_color = "None",
+    sample = "National",
+    years = c("2025")
+  ), 
+  
+  "Figure_12_D" = list(
+    figure_id = "Figure_12_D",
+    panel = "D",
+    chart_title = "Perceptions of the Police",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree that the police...",
+    var_id = c("q48a_G1", "q48c_G1", "q48d_G2"),
+    reportValues = c("1", "2"),
+    panel_title = "Due Process",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Police bars",
+    legend_text = "None",
+    legend_eqs = "None",
+    legend_color = "None",
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_12_E" = list(
+    figure_id = "Figure_12_E",
+    panel = "E",
+    chart_title = "Perceptions of the Police",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree that the police...",
+    var_id = c("q18a", "q18b", "q18c", "q18d", "q18e"),
+    reportValues = c("0"),
+    panel_title = "Discrimination",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Police bars",
+    legend_text = "None",
+    legend_eqs = "None",
+    legend_color = "None",
+    sample = "National",
+    years = c("2025")
+  ),
+  
+  "Figure_13" = list(
+    figure_id = "Figure_13",
+    panel = "A",
+    chart_title = "Trust and Corruption, by Area of Residence",
+    chart_subtitle = "Percentage of respondents who agree or strongly agree on the following statements…",
+    var_id = c(
+      "q1a",
+      "q1d",
+      "q1b", "q1c",
+      "q1e", "q1g", "q1f",
+      "q2a_inverted",
+      "q2d_inverted",
+      "q2c_inverted", "q2b_inverted",
+      "q2e_inverted", "q2g_inverted", "q2f_inverted"
+    ),
+    reportValues = c("1", "2"),
+    panel_title = "Expression",
+    panel_subtitle = "None",
+    type = "Large Dumbbells",
+    legend_text = c("Urban", "Rural"),
+    legend_eqs = c("Urban", "Rural"),
+    legend_color = c("#2a2a94","#a90099"),
+    sample = c("Urban", "Rural"),
+    years = c("2025")
+  )
+  
+  
   
 )

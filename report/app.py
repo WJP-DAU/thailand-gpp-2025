@@ -37,11 +37,12 @@ publications_data = {
 
 # Add to dynamic_data
 dynamic_data["otherPublications"] = publications_data
-thematic_findings = dict(
-    zip(
-        outline.loc[outline["thematic_findings"] == True].id, 
-        outline.loc[outline["thematic_findings"] == True].macro
-    )
+# Build an ordered list of thematic findings following the `page` order
+thematic_findings = list(
+    outline.loc[outline["thematic_findings"] == True]
+    .sort_values("page")
+    .loc[:, ["id", "macro"]]
+    .itertuples(index=False, name=None)
 )
 
 @app.context_processor

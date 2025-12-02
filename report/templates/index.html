@@ -249,19 +249,21 @@
         {{execfinds.execFindings(dynamic_data["ExecFindings"])}}
 
         <!-- THEMATIC FINDINGS -->
-        {% for id, macro in thematic_findings.items() %} {% if macro ==
-        "section" %} {{general.section_page( get_thematic_parameters(id,
-        outline, figure_map) )}} {% endif %} {% if macro == "singlepanel" %}
-        {{tf.singlepanel( get_thematic_parameters(id, outline, figure_map) )}}
-        {% endif %} {% if macro == "bipanel" %} {{tf.bipanel(
-        get_thematic_parameters(id, outline, figure_map) )}} {% endif %} {% if
-        macro == "tripanel" %} {{tf.tripanel( get_thematic_parameters(id,
-        outline, figure_map) )}} {% endif %} {% if macro == "quadpanel" %}
-        {{tf.quadpanel( get_thematic_parameters(id, outline, figure_map) )}} {%
-        endif %} {% if macro == "pentapanel" %} {{tf.pentapanel(
-        get_thematic_parameters(id, outline, figure_map) )}} {% endif %} {% if
-        macro == "hexpanel" %} {{tf.hexpanel( get_thematic_parameters(id,
-        outline, figure_map) )}} {% endif %} {% endfor %}
+        {% for id, macro in thematic_findings %} {% if macro == "section" %} {{
+        general.section_page(get_thematic_parameters(id, outline, figure_map))
+        }} {% endif %} {% if macro == "singlepanel" %} {{
+        tf.singlepanel(get_thematic_parameters(id, outline, figure_map)) }} {%
+        endif %} {% if macro == "bipanel" %} {{
+        tf.bipanel(get_thematic_parameters(id, outline, figure_map)) }} {% endif
+        %} {% if macro == "tripanel" %} {{
+        tf.tripanel(get_thematic_parameters(id, outline, figure_map)) }} {%
+        endif %} {% if macro == "quadpanel" %} {{
+        tf.quadpanel(get_thematic_parameters(id, outline, figure_map)) }} {%
+        endif %} {% if macro == "pentapanel" %} {{
+        tf.pentapanel(get_thematic_parameters(id, outline, figure_map)) }} {%
+        endif %} {% if macro == "hexpanel" %} {{
+        tf.hexpanel(get_thematic_parameters(id, outline, figure_map)) }} {%
+        endif %} {% endfor %}
 
         <!--PROJECT DESIGN -->
         {{ general.Project(dynamic_data["Project"]) }}

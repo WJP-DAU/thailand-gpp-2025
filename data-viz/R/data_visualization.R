@@ -15,6 +15,8 @@ source("R/viz_logit.R")
 source("R/viz_rose.R")
 source("R/viz_dots_roli.R")
 source("R/viz_roli.R")
+source("R/viz_donut.R")
+source("R/viz_horizontal_edge_bars.R")
 
 suppressMessages(
   suppressWarnings(
@@ -41,7 +43,7 @@ southeast_asia <- c(
 roli_data <- readxl::read_excel("../data/ROLI_data.xlsx") %>%  
   filter(country %in% southeast_asia)
 
-WJPr::wjp_fonts()
+#WJPr::wjp_fonts()
 
 #Loading fonts
 path2fonts <- file.path(
@@ -276,13 +278,323 @@ data_tabs <- purrr::imap(
           value_male = paste0(format(round(value_male, 0), nsmall=0), "%"),
           
           axis_label_md = paste0(
-            "<span style='color:#35605A;font-size:4.217518mm'>",value_female,"</span>",
+            "<span style='color:#a90099;font-size:4.217518mm'>",value_female,"</span>",
             "<span style='color:#524F4C;font-size:4.217518mm'> | </span>",
-            "<span style='color:#00120B;font-size:4.217518mm'>",value_male,"</span><br>",
+            "<span style='color:#2a2a94;font-size:4.217518mm'>",value_male,"</span><br>",
             "<span style='color:#524F4C;font-size:3.514598mm;font-weight:bold'>",label,"</span>"
           )
         )
     }
+    if(figure_id %in% c("Figure_9_X")){
+      data2plot <- data2plot %>%
+        dplyr::group_by(variable) %>% 
+        dplyr::mutate(
+          label = case_when(
+            variable == 'q49a'    ~ paste("Is **effective** in bringing<br>people who commit<br>crimes to justice"),
+            variable == 'q49b_G2' ~ paste("Ensures **equal treatment<br>of victims** by allowing all<br>",
+                                          "victims to seek justice<br>regardless of who they are"),
+            variable == 'q49e_G2' ~ paste("Safeguards the<br>**presumption of<br>innocence** by treating<br>those",
+                                          "accused of<br>crimes as innocent<br>until proven guilty"),
+            variable == 'q49c_G2' ~ paste("Ensures **equal treatment of<br>the accused** by giving all a<br>",
+                                          "fair trial regardless of who<br>they are"),
+            variable == 'q49e_G1' ~ paste("Gives **appropriate<br>punishments** that fit<br>the crime"),
+            variable == 'q49d_G1' ~ paste("Ensures **uniform quality** by<br>providing equal service<br>",
+                                          "regardless of where<br>they live",
+                                          "</span>"),
+            variable == 'q49c_G1' ~ paste("Ensures everyone<br>has **access** to the<br>justice system"),
+            variable == 'q49b_G1' ~ paste("Ensures **timeliness**<br>by dealing with<br>cases promptly",
+                                          "and<br>efficiently")
+          ),
+          value_rural = value2plot,
+          value_rural = if_else(sample == "Rural", value_rural, NA_real_),
+          value_rural = first(value_rural, na_rm = T),
+          value_rural = paste0(format(round(value_rural, 0), nsmall=0), "%"),
+          
+          value_urban = value2plot,
+          value_urban = if_else(sample == "Urban", value_urban, NA_real_),
+          value_urban = first(value_urban, na_rm = T),
+          value_urban = paste0(format(round(value_urban, 0), nsmall=0), "%"),
+          
+          axis_label_md = paste0(
+            "<span style='color:#a90099;font-size:4.217518mm'>",value_rural,"</span>",
+            "<span style='color:#524F4C;font-size:4.217518mm'> | </span>",
+            "<span style='color:#2a2a94;font-size:4.217518mm'>",value_urban,"</span><br>",
+            "<span style='color:#524F4C;font-size:3.514598mm;font-weight:bold'>",label,"</span>"
+          )
+        )
+    }
+    if(figure_id %in% c("Figure_11_A")){
+      
+      data2plot <- data2plot %>%
+        mutate(
+          category   = case_when(
+            str_detect(variable, "_na$") ~ "Neutral",
+            str_detect(variable, "_p$")  ~ "Positive",
+            str_detect(variable, "_n$")  ~ "Negative"
+          ),
+          category_label = case_when(
+            category == "Positive" ~ "It is important that citizens have a say in government\nmatters, even at the expense of efficiency",
+            category == "Negative" ~ "Government efficiency is more important than citizen\ninfluence",
+            category == "Neutral" ~ "None of the above/Prefer not to answer"
+          )
+        ) %>%
+        mutate(category = factor(category, 
+                                 levels = c(
+                                   "Positive",
+                                   "Neutral",
+                                   "Negative"))
+        ) %>%
+        ungroup() %>%
+        arrange(category) %>%
+        mutate(
+          ymax   = cumsum(value2plot),
+          ymin   = lag(ymax, default = 0),
+          labpos = (ymax + ymin) / 1.95,
+          label  = paste0(round(value2plot), "%")
+        )
+        
+    } 
+    
+    if(figure_id %in% c("Figure_11_B")){
+      
+      data2plot <- data2plot %>%
+        mutate(
+          category   = case_when(
+            str_detect(variable, "_na$") ~ "Neutral",
+            str_detect(variable, "_p$")  ~ "Positive",
+            str_detect(variable, "_n$")  ~ "Negative"
+          ),
+          category_label = case_when(
+            category == "Positive" ~ "The president must always obey the law and the courts",
+            category == "Negative" ~ "The president should not be bound by the law or courts",
+            category == "Neutral"  ~ "None of the above/Prefer not to answer"
+          )
+        ) %>%
+        mutate(category = factor(category, 
+                                 levels = c(
+                                   "Positive",
+                                   "Neutral",
+                                   "Negative"))
+        ) %>%
+        ungroup() %>%
+        arrange(category) %>%
+        mutate(
+          ymax   = cumsum(value2plot),
+          ymin   = lag(ymax, default = 0),
+          labpos = (ymax + ymin) / 1.95,
+          label  = paste0(round(value2plot), "%")
+        )
+      
+    }
+    
+    if(figure_id %in% c("Figure_11_C")){
+      
+      data2plot <- data2plot %>%
+        mutate(
+          category   = case_when(
+            str_detect(variable, "_na$") ~ "Neutral",
+            str_detect(variable, "_p$")  ~ "Positive",
+            str_detect(variable, "_n$")  ~ "Negative"
+          ),
+          category_label = case_when(
+            category == "Positive" ~ "It is important to obey the government in power, \nno matter who you voted for",
+            category == "Negative" ~ "It is not necessary to obey the laws of a government \nthat you did not vote for",
+            category == "Neutral"  ~ "None of the above/Prefer not to answer"
+          )
+        ) %>%
+        mutate(category = factor(category, 
+                                 levels = c(
+                                   "Positive",
+                                   "Neutral",
+                                   "Negative"))
+        ) %>%
+        ungroup() %>%
+        arrange(category) %>%
+        mutate(
+          ymax   = cumsum(value2plot),
+          ymin   = lag(ymax, default = 0),
+          labpos = (ymax + ymin) / 1.95,
+          label  = paste0(round(value2plot), "%")
+        )
+      
+    }
+    if(figure_id %in% c("Figure_11_D")){
+      
+      data2plot <- data2plot %>%
+        mutate(
+          category   = case_when(
+            str_detect(variable, "_na$") ~ "Neutral",
+            str_detect(variable, "_p$")  ~ "Positive",
+            str_detect(variable, "_n$")  ~ "Negative"
+          ),
+          category_label = case_when(
+            category == "Positive" ~ "Judges usually base their decisions on \nwhat the law says",
+            category == "Negative" ~ "Judges often decide cases under pressure from \nthe government or powerful private companies",
+            category == "Neutral"  ~ "None of the above/Prefer not to answer"
+          )
+        ) %>%
+        mutate(category = factor(category, 
+                                 levels = c(
+                                   "Positive",
+                                   "Neutral",
+                                   "Negative"))
+        ) %>%
+        ungroup() %>%
+        arrange(category) %>%
+        mutate(
+          ymax   = cumsum(value2plot),
+          ymin   = lag(ymax, default = 0),
+          labpos = (ymax + ymin) / 1.95,
+          label  = paste0(round(value2plot), "%")
+        )
+      
+    }
+    if(figure_id %in% c("Figure_12_A")){
+      
+      data2plot <- data2plot %>%
+        mutate(empty_value = 100 - value2plot) %>%
+        ungroup() %>%
+        select(!c(year, country, sample)) %>%
+        pivot_longer(!variable,
+                     names_to = "group",
+                     values_to = "value") %>%
+        mutate(
+          x_pos = if_else(variable %in% "q48c_G2", 3.15,
+                          if_else(variable %in% "q48e_G2", 2.15,
+                                  if_else(variable %in% "q48d_G1", 1.15, NA_real_))),
+          variable = case_when(
+            variable == "q48c_G2"   ~ "Are available to help when needed",
+            variable == "q48e_G2"   ~ "Investigate crimes in an independent manner",
+            variable == "q48d_G1"   ~ "Are held accountable for violating laws"
+          ),
+          multiplier = if_else(group == "empty_value", 0, 1),
+          label      = paste0(format(round(value, 0), nsmall = 0),
+                              "%"),
+          label = if_else(multiplier == 0, NA_character_, label)
+        )
+      
+    }
+    if(figure_id %in% c("Figure_12_B")){
+      
+      data2plot <- data2plot %>%
+        mutate(empty_value = 100 - value2plot) %>%
+        ungroup() %>%
+        select(!c(year, country, sample)) %>%
+        pivot_longer(!variable,
+                     names_to = "group",
+                     values_to = "value") %>%
+        mutate(
+          x_pos = if_else(variable %in% "q48b_G1", 1.1,
+                          if_else(variable %in% "q48a_G2", 2.15,
+                                  if_else(variable %in% "q48b_G2", 3.15, NA_real_))),
+          variable = case_when(
+            variable == "q48b_G2"     ~ "Help them feel safe",
+            variable == "q48a_G2"     ~ "Resolve security problems in  the community",
+            variable == "q48b_G1"     ~ "Perform effective and lawful investigations"
+          ),
+          multiplier = if_else(group == "empty_value", 0, 1),
+          label      = paste0(format(round(value, 0), nsmall = 0),
+                              "%"),
+          label = if_else(multiplier == 0, NA_character_, label)
+        )
+    }
+    if(figure_id %in% c("Figure_12_C")){
+      
+      data2plot <- data2plot %>%
+        mutate(empty_value = 100 - value2plot) %>%
+        ungroup() %>%
+        select(!c(year, country, sample)) %>%
+        pivot_longer(!variable,
+                     names_to = "group",
+                     values_to = "value") %>%
+        mutate(
+          x_pos = if_else(variable %in% "q9", 3.15,
+                          if_else(variable %in% "q2d", 2.15, 
+                                  if_else(variable %in% "q1d", 1.15, NA_real_))),
+          variable = case_when(
+            variable == "q1d"     ~ "Trust the police",
+            variable == "q2d"     ~ "Perceive the police as corrupt",
+            variable == "q9"      ~ "Feel safe in their neighborhoods"
+          ),
+          multiplier = if_else(group == "empty_value", 0, 1),
+          label      = paste0(format(round(value, 0), nsmall = 0),
+                              "%"),
+          label = if_else(multiplier == 0, NA_character_, label)
+        )
+    }
+    if(figure_id %in% c("Figure_12_D")){
+      
+      data2plot <- data2plot %>%
+        mutate(empty_value = 100 - value2plot) %>%
+        ungroup() %>%
+        select(!c(year, country, sample)) %>%
+        pivot_longer(!variable,
+                     names_to = "group",
+                     values_to = "value") %>%
+        mutate(
+          x_pos = if_else(variable %in% "q48d_G2", 3.15,
+                          if_else(variable %in% "q48c_G1", 2.15,
+                                  if_else(variable %in% "q48a_G1", 1.15, NA_real_))),
+          variable = case_when(
+            variable == "q48a_G1"     ~ "Act lawfully",
+            variable == "q48c_G1"     ~ "Respect the rights of suspects",
+            variable == "q48d_G2"     ~ "Treat all people with respect",
+          ),
+          multiplier = if_else(group == "empty_value", 0, 1),
+          label      = paste0(format(round(value, 0), nsmall = 0),
+                              "%"),
+          label = if_else(multiplier == 0, NA_character_, label)
+        )
+    }
+    if(figure_id %in% c("Figure_12_E")){
+      
+      data2plot <- data2plot %>%
+        mutate(empty_value = 100 - value2plot) %>%
+        ungroup() %>%
+        select(!c(year, country, sample)) %>%
+        pivot_longer(!variable,
+                     names_to = "group",
+                     values_to = "value") %>%
+        mutate(
+          x_pos = if_else(variable %in% "q18d", 5.15,
+                          if_else(variable %in% "q18c", 4.15,
+                                  if_else(variable %in% "q18e", 3.15, 
+                                          if_else(variable %in% "q18b", 2.15, 1.15)))),
+          variable = case_when(
+            variable == "q18a"     ~ "Economic status",
+            variable == "q18b"     ~ "Gender",
+            variable == "q18c"     ~ "Ethnic background",
+            variable == "q18d"     ~ "Religion",
+            variable == "q18e"     ~ "Citizenship"
+          ),
+          multiplier = if_else(group == "empty_value", 0, 1),
+          label      = paste0(format(round(value, 0), nsmall = 0),
+                              "%"),
+          label = if_else(multiplier == 0, NA_character_, label)
+        )
+    }
+    if(figure_id %in% c("Figure_13")){
+      data2plot <- data2plot %>% 
+        dplyr::mutate(
+          label = dplyr::case_when(
+            variable %in% c("q2a_inverted") ~ "Member of Congress",
+            variable %in% c("q1a") ~ "People living in their Country",
+            variable %in% c("q1d", "q2d_inverted") ~ "Police Officers",
+            variable %in% c("q1b", "q2b_inverted") ~ "Local Government Officers",
+            variable %in% c("q1c", "q2c_inverted") ~ "National Government Officers",
+            variable %in% c("q1e", "q2e_inverted") ~ "Prosecutors",
+            variable %in% c("q1f", "q2f_inverted") ~ "Public Defense Attorneys",
+            variable %in% c("q1g", "q2g_inverted") ~ "Judges and Magitrates",
+          ),
+          panel = dplyr::case_when(
+            variable %in% c("q1a", "q1d", "q1b", "q1c", "q1e", "q1f", "q1g") ~ "Trust",
+            variable %in% c("q2a_inverted", "q2d_inverted", "q2b_inverted", 
+                            "q2c_inverted", "q2e_inverted", "q2f_inverted", 
+                            "q2g_inverted") ~ "Corruption"
+          )
+        )
+    }
+    
     
     readr::write_csv(
       data2plot,
@@ -316,8 +628,8 @@ data_viz <- purrr::imap(
           data = df, 
           p0 = "Urban", 
           p1 = "Rural",
-          c0 = "#35605A",
-          c1 = "#00120B",
+          c0 = "#2a2a94",
+          c1 = "#a90099",
           pivot_var = "sample" 
         )
       }
@@ -326,14 +638,33 @@ data_viz <- purrr::imap(
           data = df, 
           p0 = "Female", 
           p1 = "Male",
-          c0 = "#35605A",
-          c1 = "#00120B",
+          c0 = "#a90099",
+          c1 = "#2a2a94",
+          pivot_var = "sample" 
+        )
+      }
+      if (figure_id %in% c("Figure_13")){
+        chart <- gen_large_dumbbells(
+          data = df, 
+          p0 = "Rural", 
+          p1 = "Urban",
+          c0 = "#a90099",
+          c1 = "#2a2a94",
           pivot_var = "sample" 
         )
       }
       
-      w <- 14
-      h <- 9
+      if (figure_id %in% c("Figure_13")){
+        
+        w <- 14
+        h <- 7
+        
+      } else {
+        
+        w <- 14
+        h <- 9
+        
+      }
     }
     
     if (type == "Single Dumbbells") {
@@ -449,6 +780,12 @@ data_viz <- purrr::imap(
       if (figure_id=="Figure_9_Y"){
         cc = "sample"
         dd = "Female"
+        
+      } else if (figure_id=="Figure_9_X") {
+        
+        cc = "sample"
+        dd = "Rural"
+      
       } else {
         cc = "year"
         dd = "2025"
@@ -510,6 +847,40 @@ data_viz <- purrr::imap(
       h <- 3
     }
     
+    if (type == "Donut") {
+      
+      chart <- donut_plot(df)
+      w <- 10
+      h <- 3.5
+    }
+    if (type == "Police bars") {
+      
+      chart <- horizontal_edgebars(
+        data2plot    = df,
+        y_value      = value,
+        x_var        = variable,
+        group_var    = group,
+        label_var    = label,
+        x_lab_pos    = x_pos,
+        y_lab_pos    = 0,
+        bar_color    = "#2a2a94",
+        margin_top   = 0
+      )
+      
+      if (figure_id %in% c("Figure_12_E")){
+        
+        w <- 4
+        h <- 2.5
+        
+        } else {
+        
+        w <- 4
+        h <- 1.75
+        
+        }
+      
+    }
+    
     ggsave(
       filename = 
         file.path(
@@ -524,7 +895,6 @@ data_viz <- purrr::imap(
       width = w,
       height = h
     )
-    
     
     return(chart)
   }

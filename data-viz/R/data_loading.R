@@ -31,7 +31,10 @@ target_variables <- c(
   "q48g_G2", "q48f_G2", "q48e_G1", "q48g_G1", "q48h_G1", "q48f_G1",
   
   # Perceptions of Corruption
-  "q2a", "q2d", "q2c", "q2b", "q2e", "q2g", "q2f", 
+  "q2a", "q2d", "q2c", "q2b", "q2e", "q2g", "q2f",
+  "q2a_inverted", "q2d_inverted", "q2c_inverted", 
+  "q2b_inverted", "q2e_inverted", "q2g_inverted", 
+  "q2f_inverted",
   
   # Perceptions of Accountability
   "q43_G2",
@@ -47,7 +50,21 @@ target_variables <- c(
   
   # Perceptions of the Criminal Justice System 
   "q49a", "q49b_G2", "q49e_G2", "q49c_G2", "q49e_G1", "EXP_q23d_G1", 
-  "q49c_G1", "q49b_G1", "q49d_G1"
+  "q49c_G1", "q49b_G1", "q49d_G1", "q44_G2",
+  
+  # Attitudes toward Authoritarianism
+  "att_aut_p1_p", "att_aut_p1_n", "att_aut_p1_na",
+  "att_aut_p2_p", "att_aut_p2_n", "att_aut_p2_na",
+  "att_aut_p3_p", "att_aut_p3_n", "att_aut_p3_na",
+  "att_aut_p4_p", "att_aut_p4_n", "att_aut_p4_na",
+  
+  # Police dashboard
+  
+  "q48c_G2", "q48e_G2", "q48d_G1", # Integrity
+  "q48b_G2", "q48a_G2", "q48b_G1", # Crime control
+  "q18a", "q18b", "q18c", "q18d", "q18e", # Discrimination
+  "q48a_G1", "q48c_G1", "q48d_G2" # Due Process
+  
 )
 
 if(!interactive()){
@@ -58,7 +75,10 @@ master_data <- haven::read_dta(path2merge)
 if(!interactive()){
   verbose_message("--- Preparing Thailand data subset...")
 }
-thai_subset <- master_data %>%
+thai_subset <- master_data %>% 
+  dplyr::filter(
+    country == "Thailand" & year > 2013
+  ) %>%
   dplyr::mutate(
     gender = dplyr::case_when(
       gend==1 ~ "Male",
@@ -118,15 +138,158 @@ thai_subset <- master_data %>%
       crime3 == 1 ~ 1,
       crime1==99 & crime2==99 & crime3==99 ~ 99,
       TRUE ~ 0
+    ),
+    att_aut_p1_p = dplyr::case_when(
+      q50 == 1 ~ 0,
+      q50 == 2 ~ 0,
+      q50 == 3 ~ 1,
+      q50 == 4 ~ 1,
+      q50 == 5 ~ 0,
+      q50 == 99 ~ 0
+    ),
+    att_aut_p1_n = dplyr::case_when(
+      q50 == 1 ~ 1,
+      q50 == 2 ~ 1,
+      q50 == 3 ~ 0,
+      q50 == 4 ~ 0,
+      q50 == 5 ~ 0,
+      q50 == 99 ~ 0
+    ),
+    att_aut_p1_na = dplyr::case_when(
+      q50 == 1  ~ 0,
+      q50 == 2  ~ 0,
+      q50 == 3  ~ 0,
+      q50 == 4  ~ 0,
+      q50 == 5  ~ 1,
+      q50 == 99 ~ 1
+    ),
+    att_aut_p2_p = dplyr::case_when(
+      q51 == 1 ~ 0,
+      q51 == 2 ~ 0,
+      q51 == 3 ~ 1,
+      q51 == 4 ~ 1,
+      q51 == 5 ~ 0,
+      q51 == 99 ~ 0
+    ),
+    att_aut_p2_n = dplyr::case_when(
+      q51 == 1 ~ 1,
+      q51 == 2 ~ 1,
+      q51 == 3 ~ 0,
+      q51 == 4 ~ 0,
+      q51 == 5 ~ 0,
+      q51 == 99 ~ 0
+    ),
+    att_aut_p2_na = dplyr::case_when(
+      q51 == 1  ~ 0,
+      q51 == 2  ~ 0,
+      q51 == 3  ~ 0,
+      q51 == 4  ~ 0,
+      q51 == 5  ~ 1,
+      q51 == 99 ~ 1
+    ),
+    att_aut_p3_p = dplyr::case_when(
+      q52 == 1 ~ 0,
+      q52 == 2 ~ 0,
+      q52 == 3 ~ 1,
+      q52 == 4 ~ 1,
+      q52 == 5 ~ 0,
+      q52 == 99 ~ 0
+    ),
+    att_aut_p3_n = dplyr::case_when(
+      q52 == 1 ~ 1,
+      q52 == 2 ~ 1,
+      q52 == 3 ~ 0,
+      q52 == 4 ~ 0,
+      q52 == 5 ~ 0,
+      q52 == 99 ~ 0
+    ),
+    att_aut_p3_na = dplyr::case_when(
+      q52 == 1  ~ 0,
+      q52 == 2  ~ 0,
+      q52 == 3  ~ 0,
+      q52 == 4  ~ 0,
+      q52 == 5  ~ 1,
+      q52 == 99 ~ 1
+    ),
+    att_aut_p4_p = dplyr::case_when(
+      q44_G2 == 1 ~ 0,
+      q44_G2 == 2 ~ 0,
+      q44_G2 == 3 ~ 1,
+      q44_G2 == 99 ~ 0
+    ),
+    att_aut_p4_n = dplyr::case_when(
+      q44_G2 == 1 ~ 1,
+      q44_G2 == 2 ~ 1,
+      q44_G2 == 3 ~ 0,
+      q44_G2 == 99 ~ 0
+    ),
+    att_aut_p4_na = dplyr::case_when(
+      q44_G2 == 1  ~ 0,
+      q44_G2 == 2  ~ 0,
+      q44_G2 == 3  ~ 0,
+      q44_G2 == 99 ~ 1
+    ),
+    q2a_inverted = dplyr::case_when(
+      q2a == 1 ~ 4,
+      q2a == 2 ~ 3,
+      q2a == 3 ~ 2,
+      q2a == 4 ~ 1,
+      q2a == 5 ~ 5,
+      TRUE ~ q2a
+    ),
+    q2b_inverted = dplyr::case_when(
+      q2b == 1 ~ 4,
+      q2b == 2 ~ 3,
+      q2b == 3 ~ 2,
+      q2b == 4 ~ 1,
+      q2b == 5 ~ 5,
+      TRUE ~ q2b
+    ),
+    q2c_inverted = dplyr::case_when(
+      q2c == 1 ~ 4,
+      q2c == 2 ~ 3,
+      q2c == 3 ~ 2,
+      q2c == 4 ~ 1,
+      q2c == 5 ~ 5,
+      TRUE ~ q2c
+    ),
+    q2d_inverted = dplyr::case_when(
+      q2d == 1 ~ 4,
+      q2d == 2 ~ 3,
+      q2d == 3 ~ 2,
+      q2d == 4 ~ 1,
+      q2d == 5 ~ 5,
+      TRUE ~ q2d
+    ),
+    q2e_inverted = dplyr::case_when(
+      q2e == 1 ~ 4,
+      q2e == 2 ~ 3,
+      q2e == 3 ~ 2,
+      q2e == 4 ~ 1,
+      q2e == 5 ~ 5,
+      TRUE ~ q2e
+    ),
+    q2f_inverted = dplyr::case_when(
+      q2f == 1 ~ 4,
+      q2f == 2 ~ 3,
+      q2f == 3 ~ 2,
+      q2f == 4 ~ 1,
+      q2f == 5 ~ 5,
+      TRUE ~ q2f
+    ),
+    q2g_inverted = dplyr::case_when(
+      q2g == 1 ~ 4,
+      q2g == 2 ~ 3,
+      q2g == 3 ~ 2,
+      q2g == 4 ~ 1,
+      q2g == 5 ~ 5,
+      TRUE ~ q2g
     )
   ) %>% 
   dplyr::select(
     country, year, gender, location, age, fin, edu, 
     tidyselect::all_of(target_variables)
-  ) %>% 
-  dplyr::filter(
-    country == "Thailand" & year > 2013
-  )
+  ) 
 
 if(!interactive()){
   verbose_message("--- Saving Thailand data subset...")

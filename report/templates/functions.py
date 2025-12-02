@@ -305,8 +305,12 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
             outline.copy()
             .loc[outline["subsection_header"] == "Executive Findings", ["id", "page", "subsection_header", "evenPage"]]
             .assign(
-                content = process_word("text/Executive_Findings_template.docx"),
-                startingPage = outline.loc[outline["subsection_header"] == "Executive Findings", "page"].iloc[0]
+                # Use lambdas so pandas will call them with the selected dataframe
+                # and we can return a value with the correct length. `process_word`
+                # returns a list (the grouped content) and we want the same value
+                # repeated for each row in the selection.
+                content = lambda df: [process_word("text/Executive_Findings_template.docx")] * len(df),
+                startingPage = lambda df: outline.loc[outline["subsection_header"] == "Executive Findings", "page"].iloc[0]
             )
         ),
         "Project"  : {

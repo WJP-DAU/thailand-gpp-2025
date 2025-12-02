@@ -147,7 +147,7 @@ gen_large_dumbbells <- function(
         face   = "bold.italic",
         margin = margin(-15,-20,0,0)
       ),
-      strip.switch.pad.grid = unit(-25, "mm"),
+      strip.switch.pad.grid = unit(-15, "mm"),
       strip.placement = "outside",
       strip.clip      = "off"
     )

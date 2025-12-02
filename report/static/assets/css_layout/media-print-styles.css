@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Intertight:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 
 @media print {
@@ -23,17 +22,17 @@
 	  }
 	} */
 	* {
-		font-family: 'Intertight' !important;
+		font-family: 'Inter Tight' !important;
 	}
 	body{
 		font-size:16px;
-		font-family: 'Intertight' !important;
+		font-family: 'Inter Tight' !important;
 	}
 	h1, h2, h3, h4, h5, h6 {
-		font-family: 'Intertight' !important;
+		font-family: 'Inter Tight' !important;
 	}
 	p {
-		font-family: 'Intertight' !important;
+		font-family: 'Inter Tight' !important;
 	}
   	.no-print, .no-print *
   	{

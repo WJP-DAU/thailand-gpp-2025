@@ -57,6 +57,7 @@ target_variables <- c(
   "att_aut_p2_p", "att_aut_p2_n", "att_aut_p2_na",
   "att_aut_p3_p", "att_aut_p3_n", "att_aut_p3_na",
   "att_aut_p4_p", "att_aut_p4_n", "att_aut_p4_na",
+  "att_aut_p5_p", "att_aut_p5_n", "att_aut_p5_na",
   
   # Police dashboard
   
@@ -228,6 +229,27 @@ thai_subset <- master_data %>%
       q44_G2 == 2  ~ 0,
       q44_G2 == 3  ~ 0,
       q44_G2 == 99 ~ 1
+    ),
+    att_aut_p5_p = dplyr::case_when(
+      q46j_G1 == 1 ~ 1,
+      q46j_G1 == 2 ~ 1,
+      q46j_G1 == 3 ~ 0,
+      q46j_G1 == 3 ~ 0,
+      q46j_G1 == 99 ~ 0
+    ),
+    att_aut_p5_n = dplyr::case_when(
+      q46j_G1 == 1 ~ 0,
+      q46j_G1 == 2 ~ 0,
+      q46j_G1 == 3 ~ 1,
+      q46j_G1 == 3 ~ 1,
+      q46j_G1 == 99 ~ 0
+    ),
+    att_aut_p5_na = dplyr::case_when(
+      q46j_G1 == 1 ~ 0,
+      q46j_G1 == 2 ~ 0,
+      q46j_G1 == 3 ~ 0,
+      q46j_G1 == 3 ~ 0,
+      q46j_G1 == 99 ~ 1
     ),
     q2a_inverted = dplyr::case_when(
       q2a == 1 ~ 4,

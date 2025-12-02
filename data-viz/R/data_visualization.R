@@ -450,6 +450,37 @@ data_tabs <- purrr::imap(
         )
       
     }
+    if(figure_id %in% c("Figure_11_E")){
+      
+      data2plot <- data2plot %>%
+        mutate(
+          category   = case_when(
+            str_detect(variable, "_na$") ~ "Neutral",
+            str_detect(variable, "_p$")  ~ "Positive",
+            str_detect(variable, "_n$")  ~ "Negative"
+          ),
+          category_label = case_when(
+            category == "Positive" ~ "The government works with civil society organizations \nto shape public policies",
+            category == "Negative" ~ "Civil society groups are excluded from how \nthe government designs public policies",
+            category == "Neutral"  ~ "None of the above/Prefer not to answer"
+          )
+        ) %>%
+        mutate(category = factor(category, 
+                                 levels = c(
+                                   "Positive",
+                                   "Neutral",
+                                   "Negative"))
+        ) %>%
+        ungroup() %>%
+        arrange(category) %>%
+        mutate(
+          ymax   = cumsum(value2plot),
+          ymin   = lag(ymax, default = 0),
+          labpos = (ymax + ymin) / 1.95,
+          label  = paste0(round(value2plot), "%")
+        )
+      
+    }
     if(figure_id %in% c("Figure_12_A")){
       
       data2plot <- data2plot %>%

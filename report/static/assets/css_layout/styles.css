@@ -7,17 +7,17 @@ html{
 }
 
 * {
-	font-family: 'Intertight' !important;
+	font-family: 'Inter Tight' !important;
 }
 
 body {
-  font-family: 'Intertight' !important;
+  font-family: 'Inter Tight' !important;
   -webkit-print-color-adjust: exact;
 }
 
 h1, h2, h3, h4, h5 {
   font-weight: 400;
-  font-family: 'Arvo', serif;
+  font-family: 'Inter Tight', serif;
 }
 
 em {
@@ -88,7 +88,7 @@ p{
   font-weight: 900;
   line-height: 46px;
   margin-bottom: 20px;
-  font-family: 'Intertight', sans-serif !important;
+  font-family: 'Inter Tight', sans-serif !important;
 }
 
 .bg-page-gray {
@@ -159,13 +159,13 @@ section.bg-purple{
 }
 
 .ff-a {
-    font-family: 'Arvo', serif;
+    font-family: 'Inter Tight', serif;
 }
 
 .title-p {
   font-size:30px;
   color:#482d8a;
-  font-family: 'Arvo', serif;
+  font-family: 'Inter Tight', serif;
 }
 
 .subtitle-p {
@@ -209,12 +209,12 @@ section.bg-purple{
 
 .fs-18 {
   font-size: 18px;
-  font-family: 'Intertight', sans-serif !important;
+  font-family: 'Inter Tight', sans-serif !important;
 }
 
 .fs-20 {
   font-size: 20px;
-  font-family: 'Intertight', sans-serif !important;
+  font-family: 'Inter Tight', sans-serif !important;
 }
 
 .box-title {
@@ -993,7 +993,7 @@ iframe#embedMenu{
 	display: inline-block;
 }
 .breadcrumb li a{
-	font-family: Intertight,Arial,Geneva,Tahoma,sans-serif;
+	font-family: Inter Tight,Arial,Geneva,Tahoma,sans-serif;
 	font-size: 14px;
 	color:#400099;
 	text-decoration: underline;

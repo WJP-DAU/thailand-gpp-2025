@@ -524,6 +524,24 @@ outline <- list(
     years = c("2025")
   ),
   
+  "Figure_11_E" = list(
+    figure_id = "Figure_11_E",
+    panel = "E",
+    chart_title = "Attitudes Towards Authoritarianism and Rule of Law",
+    chart_subtitle = "Percentage of respondents who agree with the following statements",
+    var_id = c("att_aut_p5_p", "att_aut_p5_n", "att_aut_p5_na"),
+    reportValues = c("1"),
+    panel_title = "Judicial Independence",
+    panel_subtitle = "Percentage of respondents who agree with the following statements",
+    type = "Donut",
+    legend_text = c("The government works with civil society organizations to shape public policies", 
+                    "Civil society groups are excluded from how the government designs public policies", 
+                    "None of the above/Prefer not to answer"),
+    legend_eqs = c("att_aut_p5_p", "att_aut_p5_n", "att_aut_p5_na"),
+    legend_color = c("#003B88", "#fa4d57", "#B5B5B5"),
+    sample = "National",
+    years = c("2025")
+  ),
   "Figure_12_A" = list(
     figure_id = "Figure_12_A",
     panel = "A",

@@ -114,7 +114,7 @@
         {% for panel, panel_parameters in chart_parameters.panels.items() %}
         <div class="row justify-content-center">
             <div class="col-md-11 mb-5">
-                <img src="{{panel_parameters.imgPath}}" class="w-85 img-chart">
+                <img src="{{panel_parameters.imgPath}}" class="img-chart">
             </div>
         </div>
         {% endfor %}
@@ -331,15 +331,34 @@
                 <div class="col-md-11 mb-4">
                     <div class="row">
                         <div class="col-md-5 mb-4">
-                            <p class="mb-0">
-                                <span class="bullet-square bg-red"></span><span class="text-chart">Legend 1</span>
-                            </p>
-                            <p class="mb-0">
-                                <span class="bullet-square bg-navy"></span><span class="text-chart">Legend 2 </span>
-                            </p>
-                            <p class="mb-0">
-                                <span class="bullet-square bg-gray"></span><span class="text-chart">Legend 3</span>
-                            </p>
+                            <p class="mb-0"><b><span class="lateral-bar">|</span> {{panel_parameters.panel_title}}</b></p>
+                            <p class="mb-2"></p>
+                            {% if panel_parameters.legend_text != "None" %}
+                                {% set legend_items = panel_parameters.legend_text.split(',') %}
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-red"></span><span class="text-chart">{{legend_items[0].strip()}}</span>
+                                </p>
+                                {% if legend_items|length > 1 %}
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-navy"></span><span class="text-chart">{{legend_items[1].strip()}}</span>
+                                </p>
+                                {% endif %}
+                                {% if legend_items|length > 2 %}
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-gray"></span><span class="text-chart">{{legend_items[2].strip()}}</span>
+                                </p>
+                                {% endif %}
+                            {% else %}
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-red"></span><span class="text-chart">Legend 1</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-navy"></span><span class="text-chart">Legend 2</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="bullet-square bg-gray"></span><span class="text-chart">Legend 3</span>
+                                </p>
+                            {% endif %}
                         </div>
                         <div class="col-md-7" style="padding-left:75px">
                             <img src="{{panel_parameters.imgPath}}" class="w-50 img-chart">

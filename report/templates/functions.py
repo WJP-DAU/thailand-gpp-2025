@@ -1,5 +1,6 @@
 import re
 import markdown
+import pandas as pd
 from docx import Document
 from bs4 import BeautifulSoup
 from pathlib import Path
@@ -13,22 +14,22 @@ def df2dict(df, index = "id"):
     where each row of the DataFrame becomes a dictionary entry with the index
     column as the key. Missing values in the DataFrame are replaced with "None".
 
-    If the index column contains duplicates, the function will keep the first
-    occurrence and print a warning to help debugging.
+    Args:
+        df (pandas.DataFrame): The DataFrame to convert.
+
+    Returns:
+        dict: A nested dictionary representation of the DataFrame, where each key
+              is the index column value and each value is a dictionary representing
+              the corresponding row of the DataFrame.
     """
-    dfc = df.copy().fillna("None")
-    if index not in dfc.columns:
-        raise KeyError(f"Index column '{index}' not found in DataFrame columns: {list(dfc.columns)}")
-
-    if not dfc[index].is_unique:
-        # Aviso y eliminación de duplicados manteniendo la primera aparición
-        dup_vals = dfc.loc[dfc[index].duplicated(), index].unique().tolist()
-        print(f"WARNING: df2dict detected duplicate index values for '{index}': {dup_vals}. Keeping first occurrence of each.")
-        dfc = dfc.drop_duplicates(subset=[index])
-
-    outcome = dfc.set_index(index).to_dict(orient="index")
+    outcome = (
+        df.copy()
+        .fillna("None")
+        .set_index(index)
+        .to_dict(orient="index")
+    )
     return outcome
-    
+
 def get_section_data(section_name, outline):
     """
     Get data for a specific section from an outline DataFrame.
@@ -196,6 +197,68 @@ def load_markdown_file(file_path, box = False):
 
     return result
 
+def process_about_report_with_footnotes(file_path):
+    """
+    Process about_this_report.md with footnote support.
+    
+    Converts ^1, ^2, etc. to superscript links and separates footnotes that start with ^
+    at the beginning of a line.
+    
+    Returns:
+        dict: {'content': main text HTML, 'footnotes': list of footnote HTML strings}
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    # Split into paragraphs
+    paragraphs = content.split('\n\n')
+    
+    main_content_paragraphs = []
+    footnotes = []
+    
+    for paragraph in paragraphs:
+        paragraph = paragraph.strip()
+        
+        # Check if this is a footnote (starts with ^ at beginning of line)
+        if paragraph.startswith('^') and not paragraph.startswith('^{'):
+            # This is a footnote definition
+            # Extract the text after ^
+            footnote_text = paragraph[1:].strip()
+            # Convert URLs to clickable links in footnotes (excluding trailing punctuation)
+            footnote_text = re.sub(
+                r'(https?://[^\s<]+?)([.,;:!?]*)(\s|$)',
+                r'<a href="\1" target="_blank">\1</a>\2\3',
+                footnote_text
+            )
+            footnotes.append(footnote_text)
+        else:
+            # Process inline footnote references (^1, ^2, etc.)
+            # Convert ^1 to <sup>1</sup>
+            paragraph = re.sub(r'\^(\d+)', r'<sup>\1</sup>', paragraph)
+            # Add to main content
+            main_content_paragraphs.append(paragraph)
+    
+    # Join paragraphs and wrap in <p> tags (similar to load_markdown_file)
+    wrapped_paragraphs = [f'<p>{p}</p>' for p in main_content_paragraphs]
+    result = '\n\n'.join(wrapped_paragraphs)
+    
+    # Now handle BOX markers (like in load_markdown_file)
+    result = re.sub(
+        "<p>{% BOX %}",
+        '</div><div class="col-12 mb-4 bg-quote p-5"><p class="p-quote"><i>',
+        result
+    )
+    result = re.sub(
+        "{% BOX END %}</p>",
+        '</i></p></div><div class="col-12">',
+        result
+    )
+    
+    return {
+        'content': result,
+        'footnotes': footnotes
+    }
+
 def process_word(path):
     """
     Processes a Word document, extracting and formatting the text content with HTML-like tags for bold and italic text.
@@ -268,15 +331,16 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
     methodological_materials = {
         "name"        : [source["material_name"] for source in materials],
         "description" : [source["description"] for source in materials],
-        "link1"       : [source["link1"] for source in materials],
-        "label1"      : [source["label1"] for source in materials],
-        # "link2"       : [source["link2"] for source in materials],
-        # "label2"      : [source["label2"] for source in materials],
+        "link1"       : [source.get("link1", "") if pd.notna(source.get("link1")) and str(source.get("link1")).lower() != "none" else "" for source in materials],
+        "label1"      : [source.get("label1", "") if pd.notna(source.get("label1")) and str(source.get("label1")).lower() != "none" else "" for source in materials],
+        "link2"       : [source.get("link2", "") if pd.notna(source.get("link2")) and str(source.get("link2")).lower() != "none" else "" for source in materials],
+        "label2"      : [source.get("label2", "") if pd.notna(source.get("label2")) and str(source.get("label2")).lower() != "none" else "" for source in materials],
+        "link3"       : [source.get("link3", "") if pd.notna(source.get("link3")) and str(source.get("link3")).lower() != "none" else "" for source in materials],
+        "label3"      : [source.get("label3", "") if pd.notna(source.get("label3")) and str(source.get("label3")).lower() != "none" else "" for source in materials],
         "header"      : outline.loc[outline["id"] == "Materials", "section_header"].iloc[0],
         "evenPage"    : outline.loc[outline["id"] == "Materials", "evenPage"].iloc[0],
         "page"        : outline.loc[outline["id"] == "Materials", "page"].iloc[0]
     }
-
     dynamic_data = {
         "general": (
             general_info
@@ -296,7 +360,8 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
         },
         "aboutReport" : {
             "section_page" : get_section_data("About this Report", outline),
-            "text"         : markdown.markdown(load_markdown_file("text/about_this_report.md", box = True)),
+            **process_about_report_with_footnotes("text/about_this_report.md"),
+            "text"         : markdown.markdown(process_about_report_with_footnotes("text/about_this_report.md")['content']),
             "page"         : outline.loc[outline["subsection_header"] == "About this Report", "page"].iloc[0],
             "header"       : outline.loc[outline["subsection_header"] == "About this Report", "section_header"].iloc[0],
             "evenPage"     : outline.loc[outline["subsection_header"] == "About this Report", "evenPage"].iloc[0]
@@ -305,11 +370,9 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
             outline.copy()
             .loc[outline["subsection_header"] == "Executive Findings", ["id", "page", "subsection_header", "evenPage"]]
             .assign(
-                # Use lambdas so pandas will call them with the selected dataframe
-                # and we can return a value with the correct length. `process_word`
-                # returns a list (the grouped content) and we want the same value
-                # repeated for each row in the selection.
-                content = lambda df: [process_word("text/Executive_Findings_template.docx")] * len(df),
+                content = lambda df: [item['content'] for item in _distribute_exec_findings_content("text/executive_findings.md", len(df))],
+                footnotes = lambda df: [item['footnotes'] for item in _distribute_exec_findings_content("text/executive_findings.md", len(df))],
+                all_footnotes = lambda df: [item['all_footnotes'] for item in _distribute_exec_findings_content("text/executive_findings.md", len(df))],
                 startingPage = lambda df: outline.loc[outline["subsection_header"] == "Executive Findings", "page"].iloc[0]
             )
         ),
@@ -336,7 +399,7 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
 
         "methodological_materials" : methodological_materials,
         "methodology" : {
-            "text"              : process_methodology_markdown("text/methodology.md"),
+            **process_methodology_markdown("text/methodology.md"),
             "evenPage"          : outline.loc[outline["id"] == "Methodology1", "evenPage"].iloc[0],
             "header"            : outline.loc[outline["id"] == "Methodology1", "section_header"].iloc[0],
             "id"                : outline.loc[outline["id"] == "Methodology1", "id"].iloc[0],
@@ -344,7 +407,7 @@ def get_dynamic_data(general_info, outline,  methodological_materials_df):
             "subsection_header" : outline.loc[outline["id"] == "Methodology1", "subsection_header"].iloc[0],
         },
         "description_sample" : {
-            "text"              : process_methodology_markdown("text/sample_description.md"),
+            "text"              : process_sample_description_markdown("text/sample_description.md"),
             "evenPage"          : outline.loc[outline["id"] == "Methodology2", "evenPage"].iloc[0],
             "header"            : outline.loc[outline["id"] == "Methodology2", "section_header"].iloc[0],
             "id"                : outline.loc[outline["id"] == "Methodology2", "id"].iloc[0],
@@ -371,6 +434,91 @@ def get_thematic_parameters(id, outline, figure_map):
 import re
 
 def process_methodology_markdown(file_path):
+    """
+    Process Methodology markdown file with footnote support.
+    
+    Returns a dict with:
+    - 'paragraphs': list of HTML strings
+    - 'footnotes': dict mapping footnote numbers to text {num: text}
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    paragraphs = []
+    footnotes = {}  # Changed to dict to preserve numbers
+    lines = content.split('\n')
+    
+    footnote_pattern = re.compile(r'^\^(\d+):(.*)$')
+    
+    for line in lines:
+        line = line.strip()
+        
+        if not line:  # Skip empty lines
+            continue
+        
+        # Check if this is a footnote definition (^N:text)
+        footnote_match = footnote_pattern.match(line)
+        if footnote_match:
+            footnote_num = footnote_match.group(1)
+            footnote_text = footnote_match.group(2).strip()
+            # Convert URLs to links in footnote text
+            footnote_text = re.sub(
+                r'(https?://[^\s<]+?)([.,;:!?]*)(\s|$)',
+                r'<a href="\1" target="_blank">\1</a>\2\3',
+                footnote_text
+            )
+            footnotes[footnote_num] = footnote_text
+            continue
+        elif line.startswith('^') and not line.startswith('^{') and ':' not in line:
+            # Footnote without number (^text) - auto-number sequentially
+            footnote_text = line[1:].strip()
+            footnote_text = re.sub(
+                r'(https?://[^\s<]+?)([.,;:!?]*)(\s|$)',
+                r'<a href="\1" target="_blank">\1</a>\2\3',
+                footnote_text
+            )
+            # Auto-assign next available number
+            next_num = str(len(footnotes) + 1)
+            footnotes[next_num] = footnote_text
+            continue
+        
+        # Replace markdown bold and italic with HTML
+        line = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', line)
+        line = re.sub(r'\*(.*?)\*', r'<i>\1</i>', line)
+        
+        # Convert ^N references to superscript
+        line = re.sub(r'\^(\d+)', r'<sup>\1</sup>', line)
+        
+        # Handle page breaks
+        if '<!-- page-end -->' in line:
+            paragraphs.append('<!-- page-end -->')
+        # Handle headers - preserve the markdown format for template to recognize
+        elif line.startswith('#####'):
+            paragraphs.append(line)
+        elif line.startswith('####'):
+            paragraphs.append(line)
+        elif line.startswith('###'):
+            paragraphs.append(line)
+        elif line.startswith('##'):
+            # Convert ## to bold HTML with same spacing as h1 (#)
+            content_text = line.replace('##', '').strip()
+            paragraphs.append(f'<h2 class="mt-4 mb-3"><b>{content_text}</b></h2>')
+        elif line.startswith('#'):
+            paragraphs.append(line)
+        else:
+            # Regular paragraph
+            paragraphs.append(line)
+    
+    return {'paragraphs': paragraphs, 'footnotes': footnotes}
+
+
+def process_sample_description_markdown(file_path):
+    """
+    Process Sample Description markdown file into structured sections.
+    
+    Returns a list of dictionaries with {title: ..., content: ...} structure
+    for the DS (Description Sample) template.
+    """
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
@@ -396,6 +544,150 @@ def process_methodology_markdown(file_path):
         sections.append(current_section)
 
     return sections
+
+
+def process_markdown_for_exec_findings(file_path):
+    """
+    Process Executive Findings markdown file with footnote support.
+    
+    Returns a dict with:
+    - 'paragraphs': list of HTML strings
+    - 'footnotes': dict mapping footnote numbers to text
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    paragraphs = []
+    footnotes = {}  # {footnote_number: footnote_text}
+    lines = content.split('\n')
+    
+    footnote_pattern = re.compile(r'^\^(\d+):(.*)$')
+    
+    for line in lines:
+        original_line = line
+        line = line.strip()
+        
+        if not line:  # Skip empty lines
+            continue
+        
+        # Check if this is a footnote definition (^N:text)
+        footnote_match = footnote_pattern.match(line)
+        if footnote_match:
+            footnote_num = footnote_match.group(1)
+            footnote_text = footnote_match.group(2).strip()
+            
+            # Convert URLs to links in footnote text
+            footnote_text = re.sub(
+                r'(https?://[^\s<]+?)([.,;:!?]*)(\s|$)',
+                r'<a href="\1" target="_blank">\1</a>\2\3',
+                footnote_text
+            )
+            
+            footnotes[footnote_num] = footnote_text
+            continue
+        
+        # Replace markdown bold and italic with HTML
+        line = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', line)
+        line = re.sub(r'\*(.*?)\*', r'<i>\1</i>', line)
+        
+        # Convert ^N references to superscript
+        line = re.sub(r'\^(\d+)', r'<sup>\1</sup>', line)
+        
+        # Handle page breaks
+        if '<!-- page-end -->' in line:
+            paragraphs.append('<!-- page-end -->')
+        # Handle headers - preserve the markdown format for template to recognize
+        elif line.startswith('#####'):
+            paragraphs.append(line)
+        elif line.startswith('####'):
+            paragraphs.append(line)
+        elif line.startswith('###'):
+            paragraphs.append(line)
+        elif line.startswith('##'):
+            paragraphs.append(line)
+        elif line.startswith('#'):
+            paragraphs.append(line)
+        else:
+            # Regular paragraph
+            paragraphs.append(line)
+    
+    return {'paragraphs': paragraphs, 'footnotes': footnotes}
+
+
+def _distribute_exec_findings_content(file_path, num_entries):
+    """
+    Distribute Executive Findings content across multiple entries based on page breaks.
+    
+    Splits content by <!-- page-end --> markers and distributes each page group
+    to a separate entry. 
+    
+    For web version: All footnotes appear at the end of the section (last entry).
+    For print version: Footnotes appear on each page where they are referenced (controlled by CSS).
+    """
+    processed_data = process_markdown_for_exec_findings(file_path)
+    all_paragraphs = processed_data['paragraphs']
+    all_footnotes = processed_data['footnotes']
+    
+    # Split by page breaks and track which footnotes are referenced on each page
+    page_groups = []
+    page_footnotes = []
+    current_page = []
+    current_page_footnotes = set()
+    
+    for para in all_paragraphs:
+        if para == '<!-- page-end -->':
+            if current_page:
+                page_groups.append(current_page)
+                # Build footnote dict for this page (for print version)
+                page_footnote_dict = {num: all_footnotes[num] for num in current_page_footnotes if num in all_footnotes}
+                page_footnotes.append(page_footnote_dict)
+                current_page = []
+                current_page_footnotes = set()
+        else:
+            current_page.append(para)
+            # Find footnote references in this paragraph (e.g., <sup>2</sup>)
+            import re
+            footnote_refs = re.findall(r'<sup>(\d+)</sup>', para)
+            current_page_footnotes.update(footnote_refs)
+    
+    # Add the last page if it has content
+    if current_page:
+        page_groups.append(current_page)
+        page_footnote_dict = {num: all_footnotes[num] for num in current_page_footnotes if num in all_footnotes}
+        page_footnotes.append(page_footnote_dict)
+    
+    # If no page breaks exist, treat all content as one page
+    if not page_groups:
+        page_groups = [all_paragraphs]
+        # Find all footnote references in the content
+        all_refs = set()
+        for para in all_paragraphs:
+            footnote_refs = re.findall(r'<sup>(\d+)</sup>', para)
+            all_refs.update(footnote_refs)
+        page_footnote_dict = {num: all_footnotes[num] for num in all_refs if num in all_footnotes}
+        page_footnotes = [page_footnote_dict]
+    
+    # Distribute pages to entries
+    result = []
+    is_last_page_index = len(page_groups) - 1
+    
+    for i in range(num_entries):
+        if i < len(page_groups):
+            # Each page gets its specific footnotes (for print version)
+            page_specific_footnotes = page_footnotes[i] if i < len(page_footnotes) else {}
+            
+            # Last page also gets ALL footnotes (for web version)
+            is_last = (i == is_last_page_index)
+            
+            result.append({
+                'content': page_groups[i],
+                'footnotes': page_specific_footnotes,  # For print: page-specific
+                'all_footnotes': all_footnotes if is_last else {}  # For web: all at end
+            })
+        else:
+            result.append({'content': [], 'footnotes': {}, 'all_footnotes': {}})
+    
+    return result
 
 
 

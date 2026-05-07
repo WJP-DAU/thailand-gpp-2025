@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/santiagopardo/Documents/GitHub/thailand-gpp-2025 log --oneline -20)",
+      "Bash(grep:*)",
+      "Bash(python app.py:*)",
+      "Bash(pip install:*)",
+      "Bash(cat:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)"
+    ]
+  }
+}
